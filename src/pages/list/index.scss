@@ -1,0 +1,247 @@
+.list-page {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.search-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: #fff;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+
+  .city-select {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+
+    .city-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+    }
+
+    .arrow-down {
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid #666;
+      margin-left: 5px;
+    }
+  }
+
+  .search-input-box {
+    flex: 1;
+    background: #f2f2f2;
+    height: 36px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+
+    .search-icon {
+      font-size: 14px;
+      margin-right: 8px;
+    }
+
+    .search-input {
+      flex: 1;
+      font-size: 14px;
+      height: 100%;
+      background: transparent;
+    }
+
+    .search-placeholder {
+      font-size: 14px;
+      color: #999;
+    }
+  }
+}
+
+/* 顶部筛选栏增强 */
+.filter-bar {
+  display: flex;
+  justify-content: space-around; // Changed from space-between to match inline style
+  background: #fff;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  position: sticky;
+  top: 53px; // Sticky below search header (approx height of header)
+  z-index: 10;
+
+  text {
+    position: relative;
+  }
+}
+
+.hotel-list {
+  padding: 12px;
+
+  .hotel-card {
+    background: #fff;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    display: flex;
+    padding: 15px;
+
+    .hotel-img {
+      width: 180px;
+      height: 240px;
+      border-radius: 12px;
+      flex-shrink: 0;
+    }
+
+    .hotel-info {
+      flex: 1;
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .name-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+
+        .hotel-name {
+          font-size: 22px;
+          font-weight: bold;
+          color: #333;
+          line-height: 1.4;
+          flex: 1;
+        }
+
+        .stars {
+          font-size: 10px;
+          color: #ff9500;
+          margin-left: 6px;
+        }
+      }
+
+      .score-row {
+        display: flex;
+        align-items: center;
+        margin-top: 6px;
+
+        .score {
+          background: #0086F6;
+          color: #fff;
+          font-size: 15px;
+          padding: 2px 6px;
+          border-radius: 6px;
+          font-weight: bold;
+        }
+
+        .score-desc {
+          font-size: 18px;
+          color: #0086F6;
+          font-weight: bold;
+          margin-left: 10px;
+        }
+
+        .reviews {
+          font-size: 15px;
+          color: #999;
+          margin-left: 10px;
+        }
+      }
+
+      .location-row {
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+
+        .location-icon {
+          font-size: 15px;
+        }
+
+        .location-text {
+          font-size: 15px;
+          color: #666;
+          margin-left: 4px;
+        }
+      }
+
+      .room-info {
+        background-color: #f7f9fb;
+        padding: 10px 12px;
+        border-radius: 8px;
+        margin-top: 12px;
+
+        .room-type {
+          font-size: 18px;
+          color: #333;
+          font-weight: 500;
+        }
+
+        .tags {
+          display: flex;
+          flex-wrap: wrap;
+          margin-top: 6px;
+
+          .tag {
+            font-size: 14px;
+            color: #2ba245;
+            margin-right: 12px;
+          }
+        }
+      }
+
+      .bottom-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 15px;
+
+        .price-section {
+          .price-row {
+            display: flex;
+            align-items: baseline;
+
+            .currency {
+              color: #0086f6;
+              font-size: 18px;
+              font-weight: bold;
+            }
+
+            .price {
+              color: #0086f6;
+              font-size: 36px;
+              font-weight: bold;
+              margin: 0 4px;
+            }
+
+            .unit {
+              color: #0086f6;
+              font-size: 18px;
+            }
+          }
+
+          .room-tip {
+            font-size: 14px;
+            color: #ff4d4f;
+            display: block;
+            margin-top: 4px;
+          }
+        }
+
+        .btn-detail {
+          background-color: #0086f6;
+          color: #fff;
+          font-size: 18px;
+          padding: 8px 24px;
+          border-radius: 6px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
