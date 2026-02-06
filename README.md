@@ -1,5 +1,5 @@
 # Taro-based-Hotel-Reservation-Mini-Program
-这是一个基于 [Taro](https://taro.jd.com/) 框架开发的微信小程序项目，包含酒店查询页面、酒店列表页面、酒店详情页面。
+这是一个基于 [Taro](https://taro.jd.com/) 框架开发的前端微信小程序项目，包含酒店查询页面、酒店列表页面、酒店详情页面。
 ## 🚀 快速上手
 
 请按照以下步骤在本地运行项目：
@@ -7,8 +7,8 @@
 ### 1. 克隆代码
 使用 Git 将项目下载到本地：
 ```bash
-git clone <你的仓库地址>
-cd <项目目录名>
+git clone https://github.com/qingning7/Taro-based-Hotel-Reservation-Mini-Program.git 文件夹名
+cd 文件夹名
 ```
 
 ### 2. 安装依赖
