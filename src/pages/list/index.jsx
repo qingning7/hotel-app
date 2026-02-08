@@ -54,7 +54,7 @@ export default function List() {
 
   const handleHotelClick = (hotel) => {
     Taro.navigateTo({
-      url: `/pages/detail/index?name=${hotel.name}&price=${hotel.price}&star=${hotel.star}&img=${encodeURIComponent(hotel.img)}`
+      url: `/pages/detail/index?id=${hotel.id}&name=${hotel.name}&price=${hotel.price}&star=${hotel.star}&img=${encodeURIComponent(hotel.img)}`
     })
   }
 
