@@ -29,7 +29,7 @@ export default function Detail() {
       const selectedRoom = roomTypes.find(room => room.id === selectedRoomId)
       Taro.showToast({ 
         //title: `预订成功！\n已选择：${selectedRoom.name}`, 
-        //上一行不知道为什么显示不全，只能把已选择的删除了
+        //上一行显示不全，只能把已选择的删除了
         title: '预订成功!', 
         icon: 'success' 
       })
@@ -79,26 +79,30 @@ export default function Detail() {
               className={`room-card ${selectedRoomId === room.id ? 'active' : ''}`}
               onClick={() => handleSelectRoom(room.id)}
             >
-              <View className='room-header'>
-                <View className='room-left'>
-                  <View className='room-name'>{room.name}</View>
-                  <View className='room-meta'>
-                    <Text className='meta-item'>{room.area}</Text>
-                    <Text className='meta-item'>{room.bed}</Text>
+              <Image className='room-img' src={room.img} mode='aspectFill' />
+              <View className='room-content'>
+                <View className='room-header'>
+                  <View className='room-left'>
+                    <View className='room-name'>{room.name}</View>
+                    <View className='room-meta'>
+                      <Text className='meta-item'>{room.area}</Text>
+                      <Text className='meta-item'>{room.bed}</Text>
+                    </View>
+                  </View>
+                  <View className='room-right'>
+                    <View className='room-price'>¥{room.price}</View>
+                    {selectedRoomId === room.id && <Text className='check-icon'>✓</Text>}
                   </View>
                 </View>
-                <View className='room-right'>
-                  <View className='room-price'>¥{room.price}</View>
-                  {selectedRoomId === room.id && <Text className='check-icon'>✓</Text>}
+                <View className='room-features'>
+                  {room.features.map((feature, idx) => (
+                    <Text key={idx} className='feature-tag'>{feature}</Text>
+                  ))}
                 </View>
-              </View>
-              <View className='room-features'>
-                {room.features.map((feature, idx) => (
-                  <Text key={idx} className='feature-tag'>{feature}</Text>
-                ))}
               </View>
             </View>
           ))}
+          <View className='room-spacer'></View>
         </View>
 
         {/* 已选房型详情 */}
