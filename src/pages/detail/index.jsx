@@ -12,7 +12,7 @@ export default function Detail() {
   // 获取当前酒店的完整信息（包含房型数据）
   const hotelId = Number(id)
   const hotelData = getHotelById(hotelId)
-  const roomTypes = hotelData?.roomTypes || []
+  const roomTypes = (hotelData && hotelData.roomTypes) ? hotelData.roomTypes : []
 
   const renderStars = (count) => {
     return '⭐'.repeat(Number(count) || 0)

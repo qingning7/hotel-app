@@ -21,6 +21,7 @@ export default defineConfig(async (merge, { command, mode }) => {
       "@tarojs/plugin-generator"
     ],
     defineConstants: {
+      __TENCENT_MAP_KEY__: JSON.stringify(process.env.TARO_APP_TENCENT_MAP_KEY || '')
     },
     copy: {
       patterns: [

@@ -113,7 +113,7 @@
         align-items: flex-start;
 
         .hotel-name {
-          font-size: 22px;
+          font-size: 24px;
           font-weight: bold;
           color: #333;
           line-height: 1.4;
@@ -121,7 +121,7 @@
         }
 
         .stars {
-          font-size: 10px;
+          font-size: 12px;
           color: #ff9500;
           margin-left: 6px;
         }
@@ -135,22 +135,22 @@
         .score {
           background: #0086F6;
           color: #fff;
-          font-size: 15px;
+          font-size: 16px;
           padding: 2px 6px;
           border-radius: 6px;
           font-weight: bold;
         }
 
         .score-desc {
-          font-size: 18px;
+          font-size: 20px;
           color: #0086F6;
           font-weight: bold;
           margin-left: 10px;
         }
 
         .reviews {
-          font-size: 15px;
-          color: #999;
+          font-size: 16px;
+          color: #666;
           margin-left: 10px;
         }
       }
@@ -161,12 +161,12 @@
         align-items: center;
 
         .location-icon {
-          font-size: 15px;
+          font-size: 16px;
         }
 
         .location-text {
-          font-size: 15px;
-          color: #666;
+          font-size: 16px;
+          color: #555;
           margin-left: 4px;
         }
       }
@@ -178,9 +178,9 @@
         margin-top: 12px;
 
         .room-type {
-          font-size: 18px;
+          font-size: 19px;
           color: #333;
-          font-weight: 500;
+          font-weight: 600;
         }
 
         .tags {
@@ -189,8 +189,9 @@
           margin-top: 6px;
 
           .tag {
-            font-size: 14px;
+            font-size: 15px;
             color: #2ba245;
+            font-weight: 500;
             margin-right: 12px;
           }
         }
@@ -209,7 +210,7 @@
 
             .currency {
               color: #0086f6;
-              font-size: 18px;
+              font-size: 19px;
               font-weight: bold;
             }
 
@@ -222,12 +223,12 @@
 
             .unit {
               color: #0086f6;
-              font-size: 18px;
+              font-size: 19px;
             }
           }
 
           .room-tip {
-            font-size: 14px;
+            font-size: 15px;
             color: #ff4d4f;
             display: block;
             margin-top: 4px;
@@ -237,10 +238,10 @@
         .btn-detail {
           background-color: #0086f6;
           color: #fff;
-          font-size: 18px;
+          font-size: 19px;
           padding: 8px 24px;
           border-radius: 6px;
-          font-weight: 500;
+          font-weight: 600;
         }
       }
     }

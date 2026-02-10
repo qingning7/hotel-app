@@ -1,14 +1,19 @@
 import { useState, useEffect } from 'react'
 import Taro from '@tarojs/taro'
 import { View, Text, Image, Picker, Swiper, SwiperItem } from '@tarojs/components'
-import { bannerData, getHotelById } from '../../mockData'
+import { getBannersByCity, getHotelById } from '../../mockData'
 import './index.scss'
+
+const GEO_KEY = __TENCENT_MAP_KEY__
+
+const normalizeCityName = (name = '') => name.trim().replace(/市$/, '')
 
 export default function Index() {
   const [cityName, setCityName] = useState('上海')
+  const [locating, setLocating] = useState(false)
 
   // 从 mockData 获取 banner 数据，并关联酒店信息
-  const banners = bannerData.map(banner => ({
+  const banners = getBannersByCity(cityName).map(banner => ({
     ...banner,
     hotel: getHotelById(banner.hotelId, cityName)
   }))
@@ -100,12 +105,78 @@ export default function Index() {
     setEndDate(newEndStr)
   }
 
+  const handleLocate = async (options = {}) => {
+    const { silent = false } = options
+    if (locating) return
+    if (!GEO_KEY) {
+      if (!silent) {
+        Taro.showToast({
+          title: '请配置定位服务 Key',
+          icon: 'none'
+        })
+      }
+      return
+    }
+
+    setLocating(true)
+    try {
+      const { latitude, longitude } = await Taro.getLocation({ type: 'gcj02' })
+      const { data } = await Taro.request({
+        url: 'https://apis.map.qq.com/ws/geocoder/v1/',
+        data: {
+          location: `${latitude},${longitude}`,
+          key: GEO_KEY
+        }
+      })
+      const status = data && typeof data.status !== 'undefined' ? Number(data.status) : -1
+      if (status !== 0) {
+        if (!silent) {
+          Taro.showToast({
+            title: (data && data.message) ? data.message : '定位服务异常',
+            icon: 'none'
+          })
+        }
+        return
+      }
+
+      const addressComponent = data && data.result && data.result.address_component
+        ? data.result.address_component
+        : null
+      const city = addressComponent
+        ? (addressComponent.city || addressComponent.province || addressComponent.district)
+        : undefined
+      if (city) {
+        setCityName(normalizeCityName(city))
+      } else {
+        if (!silent) {
+          Taro.showToast({
+            title: '未获取到城市信息',
+            icon: 'none'
+          })
+        }
+      }
+    } catch (error) {
+      if (!silent) {
+        Taro.showToast({
+          title: '定位失败，可手动修改',
+          icon: 'none'
+        })
+      }
+    } finally {
+      setLocating(false)
+    }
+  }
+
+  useEffect(() => {
+    handleLocate({ silent: true })
+  }, [])
+
   const changeCity = () => {
     Taro.showModal({
       title: '选择目的地',
       editable: true,
       success: (res) => {
-        if (res.confirm && res.content) setCityName(res.content)
+        if (res.confirm && res.content) setCityName(normalizeCityName(res.content))
       }
     })
   }
@@ -163,12 +234,15 @@ export default function Index() {
       {/* 核心搜索卡片 */}
       <View className='main-card'>
         {/* 目的地选择 */}
-        <View className='location-row' onClick={changeCity} style={{ borderBottom: '1px solid #f5f5f5', paddingBottom: '15px' }}>
+        <View className='location-row' style={{ borderBottom: '1px solid #f5f5f5', paddingBottom: '15px' }}>
           <View className='city-box'>
             <Text className='label'>目的地</Text>
             <Text className='city-name'>{cityName}</Text>
           </View>
-          <Text style={{ color: '#999', fontSize: '12px' }}>修改</Text>
+          <View className='location-actions'>
+            <Text className='gps-text' onClick={handleLocate}>{locating ? '定位中...' : '定位'}</Text>
+            <Text className='edit-text' onClick={changeCity}>修改</Text>
+          </View>
         </View>
 
         {/* 日期选择区 */}

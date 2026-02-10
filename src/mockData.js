@@ -1,8 +1,8 @@
-// 酒店基础数据模板（不包含城市名称）
+// 酒店基础数据模板（nameTemplate 使用 {city} 占位）
 export const hotelTemplates = [
     {
         id: 1,
-        nameTemplate: '皇廷大酒店',
+        nameTemplate: '{city}皇廷大酒店',
         price: 2588,
         score: '4.8',
         scoreDesc: '极佳',
@@ -23,7 +23,7 @@ export const hotelTemplates = [
     },
     {
         id: 2,
-        nameTemplate: '半岛丽呈精品酒店',
+        nameTemplate: '{city}半岛丽呈精品酒店',
         price: 1200,
         score: '4.6',
         scoreDesc: '超棒',
@@ -44,7 +44,7 @@ export const hotelTemplates = [
     },
     {
         id: 3,
-        nameTemplate: '金茂君悦云端酒店',
+        nameTemplate: '{city}金茂君悦云端酒店',
         price: 3200,
         score: '4.9',
         scoreDesc: '完美',
@@ -65,7 +65,7 @@ export const hotelTemplates = [
     },
     {
         id: 4,
-        nameTemplate: '希尔顿逸林酒店',
+        nameTemplate: '{city}希尔顿逸林酒店',
         price: 1580,
         score: '4.7',
         scoreDesc: '出色',
@@ -86,7 +86,7 @@ export const hotelTemplates = [
     },
     {
         id: 5,
-        nameTemplate: '瑞吉全季大酒店',
+        nameTemplate: '{city}瑞吉全季大酒店',
         price: 2100,
         score: '4.8',
         scoreDesc: '极佳',
@@ -107,7 +107,7 @@ export const hotelTemplates = [
     },
     {
         id: 6,
-        nameTemplate: '万豪行政公寓',
+        nameTemplate: '{city}万豪行政公寓',
         price: 1350,
         score: '4.5',
         scoreDesc: '很好',
@@ -128,7 +128,7 @@ export const hotelTemplates = [
     },
     {
         id: 7,
-        nameTemplate: '铂尔曼大酒店',
+        nameTemplate: '{city}铂尔曼大酒店',
         price: 1750,
         score: '4.7',
         scoreDesc: '出色',
@@ -149,7 +149,7 @@ export const hotelTemplates = [
     },
     {
         id: 8,
-        nameTemplate: '凯悦尚萃酒店',
+        nameTemplate: '{city}凯悦尚萃酒店',
         price: 1900,
         score: '4.6',
         scoreDesc: '超棒',
@@ -170,11 +170,19 @@ export const hotelTemplates = [
     }
 ]
 
+const applyCityTemplate = (template, city) => {
+    if (!template) return ''
+    if (template.includes('{city}')) {
+        return template.replace(/\{city\}/g, city)
+    }
+    return `${city}${template}`
+}
+
 // 根据城市名称生成酒店列表
 export const getHotelsByCity = (city = '上海') => {
     return hotelTemplates.map(template => ({
         ...template,
-        name: `${city}${template.nameTemplate}`
+        name: applyCityTemplate(template.nameTemplate, city)
     }))
 }
 
@@ -183,25 +191,33 @@ export const bannerData = [
     {
         id: 1,
         img: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800',
-        title: '上海皇廷大酒店',
+        title: '{city}皇廷大酒店',
         subTitle: '找到最适合你的星级酒店',
         hotelId: 1
     },
     {
         id: 2,
         img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800',
-        title: '上海金茂君悦云端酒店',
+        title: '{city}金茂君悦云端酒店',
         subTitle: '全城高空美景尽在掌握',
         hotelId: 3
     },
     {
         id: 3,
         img: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800',
-        title: '上海瑞吉全季大酒店',
+        title: '{city}瑞吉全季大酒店',
         subTitle: '精选精品酒店，解锁城市新玩法',
         hotelId: 5
     }
 ]
+
+// 根据城市名称生成 Banner 列表
+export const getBannersByCity = (city = '上海') => {
+    return bannerData.map(banner => ({
+        ...banner,
+        title: applyCityTemplate(banner.title, city)
+    }))
+}
 
 // 根据 hotelId 获取酒店详情
 export const getHotelById = (hotelId, city = '上海') => {
@@ -209,6 +225,6 @@ export const getHotelById = (hotelId, city = '上海') => {
     if (!template) return null
     return {
         ...template,
-        name: `${city}${template.nameTemplate}`
+        name: applyCityTemplate(template.nameTemplate, city)
     }
 }

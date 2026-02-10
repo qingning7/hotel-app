@@ -114,6 +114,17 @@
       font-size: 14px;
     }
 
+    .location-actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .edit-text {
+      color: #999;
+      font-size: 12px;
+      margin-left: 12px;
+    }
+
     .day-count {
       font-size: 14px;
       color: #666;
