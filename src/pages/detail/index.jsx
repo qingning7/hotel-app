@@ -1,18 +1,29 @@
 import Taro, { useRouter } from '@tarojs/taro'
-import { View, Text, Image, Button, ScrollView } from '@tarojs/components'
+import { View, Text, Image, Button, Swiper, SwiperItem } from '@tarojs/components'
 import { useState } from 'react'
 import { getHotelById } from '../../mockData'
 import './index.scss'
 
 export default function Detail() {
   const router = useRouter()
-  const { name, price, img, star, id } = router.params
+  const { name, price, img, star, id, city } = router.params
   const [selectedRoomId, setSelectedRoomId] = useState(null)
   
   // 获取当前酒店的完整信息（包含房型数据）
   const hotelId = Number(id)
-  const hotelData = getHotelById(hotelId)
+  const hotelData = getHotelById(hotelId, city || '上海')
   const roomTypes = (hotelData && hotelData.roomTypes) ? hotelData.roomTypes : []
+  const hotelNameEn = (hotelData && hotelData.nameEn) ? hotelData.nameEn : ''
+  const hotelAddress = (hotelData && hotelData.address) ? hotelData.address : ''
+  const hotelRoomType = (hotelData && hotelData.roomType) ? hotelData.roomType : ''
+  const hotelOpened = (hotelData && hotelData.opened) ? hotelData.opened : ''
+  const hotelDesc = (hotelData && hotelData.desc)
+    ? hotelData.desc
+    : '这家极具风情的豪华酒店，坐落于城市核心地段，拥有绝佳的视野和一流的服务设施。'
+  const fallbackImg = decodeURIComponent(img) || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'
+  const hotelImages = (hotelData && hotelData.images && hotelData.images.length)
+    ? hotelData.images
+    : [fallbackImg]
 
   const renderStars = (count) => {
     return '⭐'.repeat(Number(count) || 0)
@@ -44,11 +55,26 @@ export default function Detail() {
 
   return (
     <View className='detail-page'>
-      <Image className='detail-img' src={decodeURIComponent(img) || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'} mode='aspectFill' />
+      <Swiper
+        className='detail-banner'
+        circular
+        indicatorDots
+        autoplay
+        interval={4000}
+      >
+        {hotelImages.map((src, index) => (
+          <SwiperItem key={`${hotelId}-${index}`}>
+            <Image className='detail-img' src={src} mode='aspectFill' />
+          </SwiperItem>
+        ))}
+      </Swiper>
 
       <View className='info-section'>
         <View className='title-row' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Text className='hotel-title' style={{ flex: 1 }}>{name || '酒店详情'}</Text>
+          <View className='title-block'>
+            <Text className='hotel-title' style={{ flex: 1 }}>{name || '酒店详情'}</Text>
+            {hotelNameEn && <Text className='hotel-title-en'>{hotelNameEn}</Text>}
+          </View>
           <Text style={{ color: '#ff9500', fontSize: '14px', marginLeft: '10px' }}>{renderStars(star)}</Text>
         </View>
         <View className='tags'>
@@ -66,8 +92,22 @@ export default function Detail() {
         <View className='desc'>
           <Text className='desc-title'>酒店简介</Text>
           <Text className='desc-content'>
-            这家极具风情的豪华酒店，坐落于城市核心地段，拥有绝佳的视野和一流的服务设施。无论是商务出差还是休闲旅游，都是您的不二之选。
+            {hotelDesc}
           </Text>
+          <View className='meta-list'>
+            <View className='meta-item'>
+              <Text className='meta-label'>酒店地址</Text>
+              <Text className='meta-value'>{hotelAddress || '-'}</Text>
+            </View>
+            <View className='meta-item'>
+              <Text className='meta-label'>主力房型</Text>
+              <Text className='meta-value'>{hotelRoomType || '-'}</Text>
+            </View>
+            <View className='meta-item'>
+              <Text className='meta-label'>开业时间</Text>
+              <Text className='meta-value'>{hotelOpened || '-'}</Text>
+            </View>
+          </View>
         </View>
 
         {/* 房型选择区域 */}

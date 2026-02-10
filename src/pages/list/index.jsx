@@ -54,7 +54,7 @@ export default function List() {
 
   const handleHotelClick = (hotel) => {
     Taro.navigateTo({
-      url: `/pages/detail/index?id=${hotel.id}&name=${hotel.name}&price=${hotel.price}&star=${hotel.star}&img=${encodeURIComponent(hotel.img)}`
+      url: `/pages/detail/index?id=${hotel.id}&name=${hotel.name}&price=${hotel.price}&star=${hotel.star}&img=${encodeURIComponent(hotel.img)}&city=${city}`
     })
   }
 
@@ -65,10 +65,6 @@ export default function List() {
   return (
     <View className='list-page'>
       <View className='search-header'>
-        <View className='city-select'>
-          <Text className='city-name'>{city}</Text>
-          <View className='arrow-down'></View>
-        </View>
         <View className='search-input-box'>
           <Text className='search-icon'>🔍</Text>
           <Input
@@ -123,7 +119,12 @@ export default function List() {
 
               <View className='location-row'>
                 <Text className='location-icon'>📍</Text>
-                <Text className='location-text'>{hotel.location}</Text>
+                <Text className='location-text'>地址：{hotel.address || hotel.location}</Text>
+              </View>
+
+              <View className='open-row'>
+                <Text className='open-label'>开业</Text>
+                <Text className='open-value'>{hotel.opened || '-'}</Text>
               </View>
 
               <View className='room-info'>

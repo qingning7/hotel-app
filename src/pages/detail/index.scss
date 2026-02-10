@@ -3,9 +3,14 @@
     min-height: 100vh;
     padding-bottom: 80px; // 为底部按钮留出空间
   
-    .detail-img {
+    .detail-banner {
       width: 100%;
       height: 250px;
+    }
+
+    .detail-img {
+      width: 100%;
+      height: 100%;
     }
   
     .info-section {
@@ -18,6 +23,21 @@
         display: block;
         margin-bottom: 12px;
       }
+
+      .title-block {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+
+      .hotel-title-en {
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        margin-top: 4px;
+        margin-bottom: 8px;
+        display: block;
+      }
   
       .tags {
         margin-bottom: 20px;
@@ -28,6 +48,39 @@
           padding: 4px 8px;
           border-radius: 4px;
           margin-right: 10px;
+        }
+      }
+
+      .meta-list {
+        background: #f7f9fb;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 16px;
+
+        .meta-item {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
+          margin-bottom: 6px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .meta-label {
+            font-size: 12px;
+            color: #999;
+            flex: 0 0 auto;
+            margin-right: 8px;
+          }
+
+          .meta-value {
+            font-size: 12px;
+            color: #333;
+            flex: 1;
+            text-align: right;
+            word-break: break-word;
+          }
         }
       }
   
@@ -73,37 +126,39 @@
 
         .room-card {
           width: 100%;
-          padding: 10px;
+          padding: 12px;
           margin-bottom: 10px;
-          margin-right: 20px;
-          background: #f9f9f9;
-          border: 2px solid #e0e0e0;
-          border-radius: 8px;
+          margin-right: 0;
+          background: #fff;
+          border: 2px solid #e6e9f0;
+          border-radius: 14px;
           position: relative;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
           display: flex;
           gap: 10px;
           align-items: flex-start;
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+          box-sizing: border-box;
 
           &:active {
             transform: scale(0.98);
           }
 
           &.active {
-            background: #fef4f4;
-            border-color: #ff5a5f;
-            box-shadow: 0 2px 8px rgba(255, 90, 95, 0.2);
+            background: #f0f7ff;
+            border-color: #0086f6;
+            box-shadow: 0 6px 16px rgba(0, 134, 246, 0.2);
 
             .room-name,
             .room-price {
-              color: #ff5a5f;
+              color: #0086f6;
             }
           }
 
           .room-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 6px;
+            width: 140px;
+            height: 140px;
+            border-radius: 10px;
             display: block;
             flex-shrink: 0;
           }
@@ -129,6 +184,7 @@
             text-align: right;
             position: relative;
             margin-left: 8px;
+            min-width: 56px;
           }
 
           .room-name {
@@ -153,7 +209,7 @@
           .room-price {
             font-size: 16px;
             font-weight: bold;
-            color: #ff5a5f;
+            color: #0086f6;
             margin-bottom: 4px;
           }
 
@@ -161,7 +217,7 @@
             display: inline-block;
             width: 18px;
             height: 18px;
-            background: #ff5a5f;
+            background: #0086f6;
             color: white;
             border-radius: 50%;
             text-align: center;
@@ -178,8 +234,8 @@
 
             .feature-tag {
               font-size: 11px;
-              background: #eef7fe;
-              color: #0086f6;
+              background: #eef6ff;
+              color: #2b6de5;
               padding: 3px 6px;
               border-radius: 3px;
               white-space: nowrap;
