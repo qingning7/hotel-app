@@ -207,7 +207,7 @@
           }
 
           .room-price {
-            font-size: 16px;
+            font-size: 20px;
             font-weight: bold;
             color: #0086f6;
             margin-bottom: 4px;
@@ -240,6 +240,23 @@
               border-radius: 3px;
               white-space: nowrap;
             }
+          }
+
+          .room-book-tag {
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #2b6de5;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(43, 109, 229, 0.3);
           }
         }
 

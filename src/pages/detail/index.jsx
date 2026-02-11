@@ -251,6 +251,7 @@ export default function Detail() {
                   ))}
                 </View>
               </View>
+              <View className='room-book-tag'>订</View>
             </View>
           ))}
           <View className='room-spacer'></View>
