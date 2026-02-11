@@ -53,15 +53,15 @@
 
       .meta-list {
         background: #f7f9fb;
-        padding: 12px;
+        padding: 8px 10px;
         border-radius: 8px;
-        margin-bottom: 16px;
+        margin-bottom: 12px;
 
         .meta-item {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          margin-bottom: 6px;
+          margin-bottom: 4px;
 
           &:last-child {
             margin-bottom: 0;
@@ -96,31 +96,32 @@
       }
   
       .desc {
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         .desc-title {
           font-size: 18px;
           font-weight: bold;
           display: block;
-          margin-bottom: 10px;
+          margin-bottom: 6px;
+          color: #1f2a37;
         }
         .desc-content {
           font-size: 14px;
-          color: #666;
-          line-height: 1.6;
+          color: #333;
+          line-height: 1.5;
         }
       }
 
       // 房型选择区域样式
       .room-section {
-        margin-bottom: 20px;
-        margin-top: 20px;
+        margin-bottom: 16px;
+        margin-top: 14px;
 
         .room-title {
           //这个font是指“选择房型”
           font-size: 18px;
           font-weight: bold;
           display: block;
-          margin-bottom: 15px;
+          margin-bottom: 10px;
           color: #333;
         }
 
@@ -249,28 +250,28 @@
             width: 36px;
             height: 36px;
             border-radius: 10px;
-            background: #2b6de5;
+            background: #0086f6;
             color: #fff;
             font-size: 18px;
             font-weight: 700;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 12px rgba(43, 109, 229, 0.3);
+            box-shadow: 0 6px 12px rgba(0, 134, 246, 0.3);
           }
         }
 
         .calendar-section {
-          margin-bottom: 16px;
+          margin-bottom: 10px;
           display: flex;
           flex-direction: column;
-          gap: 12px;
+          gap: 10px;
         }
 
         .calendar-card {
           background: #fff;
           border-radius: 16px;
-          padding: 14px;
+          padding: 10px;
           border: 1px solid #e6eef7;
           box-shadow: 0 8px 20px rgba(16, 24, 40, 0.06);
         }
@@ -299,16 +300,16 @@
         .calendar-row {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 6px;
         }
 
         .calendar-divider {
-          width: 40px;
+          width: 32px;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 6px;
+          gap: 4px;
         }
 
         .divider-line {
@@ -321,7 +322,7 @@
           flex: 1;
           background: #f8fafc;
           border-radius: 12px;
-          padding: 10px;
+          padding: 8px;
           cursor: pointer;
         }
 
@@ -331,14 +332,14 @@
         }
 
         .date-display {
-          margin-top: 4px;
+          margin-top: 2px;
           display: flex;
           align-items: center;
-          gap: 6px;
+          gap: 4px;
         }
 
         .date-value {
-          font-size: 16px;
+          font-size: 14px;
           font-weight: 600;
           color: #111827;
         }
@@ -349,12 +350,12 @@
         }
 
         .people-row {
-          margin-top: 10px;
+          margin-top: 8px;
           display: flex;
           align-items: center;
           background: #f8fafc;
           border-radius: 12px;
-          padding: 8px 12px;
+          padding: 6px 10px;
         }
 
         .people-item {
@@ -370,8 +371,8 @@
         }
 
         .people-value {
-          margin-top: 4px;
-          font-size: 16px;
+          margin-top: 2px;
+          font-size: 14px;
           font-weight: 600;
           color: #111827;
         }
