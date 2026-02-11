@@ -5,7 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #f5f5f5;
+  background: linear-gradient(180deg, #f0f6ff 0%, #ffffff 60%);
 }
 
 code {
@@ -52,7 +52,8 @@ select {
   border-radius: 12px;
   background: #fff;
   padding: 16px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 24px rgba(22, 119, 255, 0.08);
+  border: 1px solid #e6f4ff;
 }
 
 .btn {
@@ -79,8 +80,9 @@ select {
 }
 
 .btnGhost {
-  background: transparent;
-  border-color: rgba(0, 0, 0, 0.12);
+  background: #ffffff;
+  border-color: #e6f4ff;
+  color: #1677ff;
 }
 
 .input {
@@ -95,8 +97,8 @@ select {
 }
 
 .input:focus {
-  border-color: rgba(22, 119, 255, 0.6);
-  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.15);
+  border-color: #1677ff;
+  box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.2);
 }
 
 /* Auth page */
@@ -110,6 +112,7 @@ select {
 .authCard {
   width: min(420px, 94vw);
   padding: 20px;
+  border: 1px solid #e6f4ff;
 }
 
 .authTabs {
@@ -154,7 +157,7 @@ select {
 }
 
 .price {
-  color: #f5222d;
+  color: #1677ff;
   font-weight: 700;
 }
 

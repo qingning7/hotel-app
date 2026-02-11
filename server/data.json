@@ -37,6 +37,19 @@
       "createdBy": "merchant",
       "deleted": false,
       "createdAt": 1770796794346
+    },
+    {
+      "id": "1770799309469",
+      "name": "如家酒店",
+      "city": "合肥",
+      "address": "合肥市经济开发区136号",
+      "desc": "风景优美",
+      "price": "399",
+      "status": "approved",
+      "reason": "",
+      "createdBy": "merchant1",
+      "deleted": false,
+      "createdAt": 1770799309470
     }
   ],
   "subscriptions": [
@@ -51,6 +64,12 @@
       "hotelId": "1770796794346",
       "username": "youke2",
       "createdAt": 1770796945663
+    },
+    {
+      "id": "1770799365949",
+      "hotelId": "1770799309469",
+      "username": "youke2",
+      "createdAt": 1770799365949
     }
   ]
 }
