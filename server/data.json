@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "username": "admin",
+      "password": "123456",
+      "role": "admin"
+    },
+    {
+      "username": "merchant",
+      "password": "123456",
+      "role": "merchant"
+    }
+  ],
+  "hotels": [
+    {
+      "id": "1770796474270",
+      "name": "????",
+      "city": "??",
+      "address": "????",
+      "desc": "??",
+      "price": "399",
+      "status": "approved",
+      "reason": "",
+      "createdBy": "merchant",
+      "deleted": false,
+      "createdAt": 1770796474270
+    },
+    {
+      "id": "1770796794346",
+      "name": "桔子酒店",
+      "city": "合肥",
+      "address": "合肥市经济开发区136号",
+      "desc": "无",
+      "price": "289",
+      "status": "approved",
+      "reason": "",
+      "createdBy": "merchant",
+      "deleted": false,
+      "createdAt": 1770796794346
+    }
+  ],
+  "subscriptions": [
+    {
+      "id": "1770796474955",
+      "hotelId": "1770796474270",
+      "username": "user1",
+      "createdAt": 1770796474955
+    },
+    {
+      "id": "1770796945663",
+      "hotelId": "1770796794346",
+      "username": "youke2",
+      "createdAt": 1770796945663
+    }
+  ]
+}
