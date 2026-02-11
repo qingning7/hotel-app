@@ -12,11 +12,11 @@ export async function getHotelById(id) {
   return r.json();
 }
 
-export async function createSubscription({ hotelId, username }) {
+export async function createSubscription({ hotelId, username, checkinDate, checkoutDate }) {
   const r = await fetch(`${API_BASE}/subscriptions`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ hotelId, username }),
+    body: JSON.stringify({ hotelId, username, checkinDate, checkoutDate }),
   });
   if (!r.ok) throw new Error("订阅失败");
   return r.json();

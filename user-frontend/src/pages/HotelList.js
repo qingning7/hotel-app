@@ -29,6 +29,13 @@ export default function HotelListPage() {
             key={h.id}
             className="card"
           >
+            {Array.isArray(h.images) && h.images.length > 0 ? (
+              <img
+                src={h.images[0]?.startsWith("http") ? h.images[0] : `http://localhost:4000${h.images[0] || ""}`}
+                alt=""
+                style={{ width: "100%", height: 140, objectFit: "cover", borderRadius: 10, border: "1px solid #e6f4ff" }}
+              />
+            ) : null}
             <h3 className="hotelCardHeader">{h.name}</h3>
             <p className="muted">
               {h.city} · {h.address}

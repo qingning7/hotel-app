@@ -50,6 +50,36 @@
       "createdBy": "merchant1",
       "deleted": false,
       "createdAt": 1770799309470
+    },
+    {
+      "id": "1770800654689",
+      "name": "桔子酒店",
+      "city": "南京",
+      "address": "南京市xxx",
+      "desc": "222",
+      "price": "399",
+      "images": [
+        "/uploads/1770800651997_10c1cbaade3df.png",
+        "/uploads/1770800652047_0f944b5f2521c8.jpg",
+        "/uploads/1770800892221_91125f1c8fa08.png",
+        "/uploads/1770800896608_36b219506884e8.jpg"
+      ],
+      "location": {
+        "lat": 31,
+        "lng": 121,
+        "address": "南京市xxx"
+      },
+      "star": 4,
+      "checkinTime": "14：00",
+      "checkoutTime": "13：00",
+      "phone": "12345678",
+      "amenities": [],
+      "policies": "不可携带宠物",
+      "status": "approved",
+      "reason": "",
+      "createdBy": "merchant",
+      "deleted": false,
+      "createdAt": 1770800654689
     }
   ],
   "subscriptions": [
@@ -70,6 +100,14 @@
       "hotelId": "1770799309469",
       "username": "youke2",
       "createdAt": 1770799365949
+    },
+    {
+      "id": "1770801188778",
+      "hotelId": "1770800654689",
+      "username": "youke2",
+      "checkinDate": "2026-02-11",
+      "checkoutDate": "2026-02-15",
+      "createdAt": 1770801188778
     }
   ]
 }

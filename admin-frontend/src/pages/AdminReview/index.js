@@ -13,6 +13,7 @@ export default function AdminReview() {
   const [reasonModal, setReasonModal] = useState({ open: false, id: null });
   const [reason, setReason] = useState("");
   const [data, setData] = useState([]);
+  const [detail, setDetail] = useState({ open: false, row: null });
 
   useEffect(() => {
     let mounted = true;
@@ -62,6 +63,16 @@ export default function AdminReview() {
   };
 
   const columns = [
+    {
+      title: "缩略图",
+      dataIndex: "images",
+      render: (images) =>
+        Array.isArray(images) && images.length > 0 ? (
+          <img src={(images[0]?.startsWith("http") ? images[0] : `http://localhost:4000${images[0] || ""}`)} alt="" style={{ width: 64, height: 48, objectFit: "cover", borderRadius: 6, border: "1px solid #e6f4ff" }} />
+        ) : (
+          <span>—</span>
+        ),
+    },
     { title: "酒店名", dataIndex: "name" },
     { title: "商户", dataIndex: "createdBy" },
     { title: "城市", dataIndex: "city" },
@@ -97,6 +108,12 @@ export default function AdminReview() {
           <Button onClick={() => toggleOffline(row)}>
             {row.deleted ? "恢复" : "下线"}
           </Button>
+          <Button
+            type="link"
+            onClick={() => setDetail({ open: true, row })}
+          >
+            查看详情
+          </Button>
         </Space>
       ),
     },
@@ -120,6 +137,38 @@ export default function AdminReview() {
           rows={4}
           placeholder="例如：地址不完整/价格不合法/图片缺失等"
         />
+      </Modal>
+      <Modal
+        title="酒店详情"
+        open={detail.open}
+        onCancel={() => setDetail({ open: false, row: null })}
+        footer={null}
+        width={800}
+      >
+        {detail.row ? (
+          <div>
+            <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 12 }}>
+              {(detail.row.images || []).map((url) => {
+                const src = url?.startsWith("http") ? url : `http://localhost:4000${url || ""}`;
+                return <img key={url} src={src} alt="" style={{ width: 120, height: 90, objectFit: "cover", borderRadius: 8, border: "1px solid #e6f4ff" }} />;
+              })}
+            </div>
+            <div style={{ lineHeight: 1.9 }}>
+              <div>酒店名：{detail.row.name}</div>
+              <div>星级：{detail.row.star}</div>
+              <div>城市：{detail.row.city}</div>
+              <div>地址：{detail.row.address}</div>
+              <div>价格/晚：{detail.row.price}</div>
+              <div>入住时间：{detail.row.checkinTime}</div>
+              <div>退房时间：{detail.row.checkoutTime}</div>
+              <div>联系电话：{detail.row.phone}</div>
+              <div>设施与服务：{Array.isArray(detail.row.amenities) ? detail.row.amenities.join(", ") : ""}</div>
+              <div>政策与说明：{detail.row.policies}</div>
+              <div>坐标：{detail.row.location?.lat}, {detail.row.location?.lng}</div>
+              <div>简介：{detail.row.desc}</div>
+            </div>
+          </div>
+        ) : null}
       </Modal>
     </div>
   );

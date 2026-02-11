@@ -161,6 +161,24 @@ select {
   font-weight: 700;
 }
 
+.gallery {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #e6f4ff;
+  color: #1677ff;
+  border: 1px solid #cde3ff;
+  font-size: 12px;
+  margin: 0 6px 6px 0;
+}
+
 @media (max-width: 480px) {
   .page {
     padding: 14px;

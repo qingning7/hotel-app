@@ -2,12 +2,24 @@ const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
 const path = require("path");
+const multer = require("multer");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const dataFile = path.join(__dirname, "data.json");
+const uploadDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadDir),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname || "");
+    cb(null, `${Date.now()}_${Math.random().toString(16).slice(2)}${ext}`);
+  },
+});
+const upload = multer({ storage });
+app.use("/uploads", express.static(uploadDir));
 
 function readData() {
   try {
@@ -62,6 +74,18 @@ app.post("/api/hotels", (req, res) => {
     address: body.address || "",
     desc: body.desc || "",
     price: body.price || "",
+    images: Array.isArray(body.images) ? body.images : [],
+    location: body.location && typeof body.location === "object" ? {
+      lat: Number(body.location.lat || 0),
+      lng: Number(body.location.lng || 0),
+      address: body.location.address || body.address || ""
+    } : { lat: 0, lng: 0, address: body.address || "" },
+    star: Number(body.star || 0),
+    checkinTime: body.checkinTime || "",
+    checkoutTime: body.checkoutTime || "",
+    phone: body.phone || "",
+    amenities: Array.isArray(body.amenities) ? body.amenities : [],
+    policies: body.policies || "",
     status: "pending",
     reason: "",
     createdBy: body.createdBy || "",
@@ -84,7 +108,21 @@ app.put("/api/hotels/:id", (req, res) => {
     city: body.city ?? db.hotels[idx].city,
     address: body.address ?? db.hotels[idx].address,
     desc: body.desc ?? db.hotels[idx].desc,
-    price: body.price ?? db.hotels[idx].price
+    price: body.price ?? db.hotels[idx].price,
+    images: Array.isArray(body.images) ? body.images : db.hotels[idx].images,
+    location: body.location && typeof body.location === "object"
+      ? {
+          lat: Number(body.location.lat || 0),
+          lng: Number(body.location.lng || 0),
+          address: body.location.address || db.hotels[idx].location?.address || ""
+        }
+      : db.hotels[idx].location,
+    star: body.star !== undefined ? Number(body.star) : db.hotels[idx].star,
+    checkinTime: body.checkinTime ?? db.hotels[idx].checkinTime,
+    checkoutTime: body.checkoutTime ?? db.hotels[idx].checkoutTime,
+    phone: body.phone ?? db.hotels[idx].phone,
+    amenities: Array.isArray(body.amenities) ? body.amenities : db.hotels[idx].amenities,
+    policies: body.policies ?? db.hotels[idx].policies
   };
   writeData(db);
   res.json(db.hotels[idx]);
@@ -111,6 +149,12 @@ app.patch("/api/hotels/:id/online", (req, res) => {
   res.json(db.hotels[idx]);
 });
 
+app.post("/api/upload-images", upload.array("images", 10), (req, res) => {
+  const base = `${req.protocol}://${req.get("host")}`;
+  const urls = (req.files || []).map(f => `${base}/uploads/${path.basename(f.path)}`);
+  res.json({ urls });
+});
+
 app.get("/api/subscriptions", (req, res) => {
   const db = readData();
   const merchant = req.query.merchant;
@@ -129,6 +173,8 @@ app.post("/api/subscriptions", (req, res) => {
     id: String(Date.now()),
     hotelId: body.hotelId,
     username: body.username || "",
+    checkinDate: body.checkinDate || "",
+    checkoutDate: body.checkoutDate || "",
     createdAt: Date.now()
   };
   db.subscriptions.push(sub);
