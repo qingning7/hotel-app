@@ -1,5 +1,5 @@
 import Taro, { useRouter } from '@tarojs/taro'
-import { View, Text, Image, Button, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Text, Image, Button, Swiper, SwiperItem, Picker } from '@tarojs/components'
 import { useState } from 'react'
 import { getHotelById } from '../../mockData'
 import './index.scss'
@@ -8,6 +8,81 @@ export default function Detail() {
   const router = useRouter()
   const { name, price, img, star, id, city } = router.params
   const [selectedRoomId, setSelectedRoomId] = useState(null)
+
+  // 日历与人数房间选择
+  const formatDateStr = (date) => {
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0')
+    const day = String(date.getDate()).padStart(2, '0')
+    return `${year}-${month}-${day}`
+  }
+
+  const getDisplayDate = (dateStr) => {
+    const date = new Date(dateStr)
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const weekDays = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
+    const weekDay = weekDays[date.getDay()]
+    return {
+      monthDay: `${month}月${day}日`,
+      weekDay: weekDay
+    }
+  }
+
+  const today = new Date()
+  const tomorrow = new Date(today)
+  tomorrow.setDate(today.getDate() + 1)
+
+  const [startDate, setStartDate] = useState(formatDateStr(today))
+  const [endDate, setEndDate] = useState(formatDateStr(tomorrow))
+  const [guestIndex, setGuestIndex] = useState(0)
+  const [roomIndex, setRoomIndex] = useState(0)
+
+  const guestOptions = ['1人', '2人', '3人', '4人', '5人', '6人']
+  const roomOptions = ['1间', '2间', '3间', '4间']
+
+  const calcDays = () => {
+    const start = new Date(startDate)
+    const end = new Date(endDate)
+    const diff = Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+    return diff > 0 ? diff : 0
+  }
+
+  const handleStartDateChange = (e) => {
+    const newStartStr = e.detail.value
+    setStartDate(newStartStr)
+
+    const newStart = new Date(newStartStr)
+    const currentEnd = new Date(endDate)
+    if (newStart >= currentEnd) {
+      const nextDay = new Date(newStart)
+      nextDay.setDate(newStart.getDate() + 1)
+      setEndDate(formatDateStr(nextDay))
+    }
+  }
+
+  const handleEndDateChange = (e) => {
+    const newEndStr = e.detail.value
+    const newEnd = new Date(newEndStr)
+    const currentStart = new Date(startDate)
+
+    if (newEnd <= currentStart) {
+      Taro.showToast({
+        title: '离店日期需晚于入住日期',
+        icon: 'none'
+      })
+      return
+    }
+    setEndDate(newEndStr)
+  }
+
+  const handleGuestChange = (e) => {
+    setGuestIndex(Number(e.detail.value))
+  }
+
+  const handleRoomChange = (e) => {
+    setRoomIndex(Number(e.detail.value))
+  }
   
   // 获取当前酒店的完整信息（包含房型数据）
   const hotelId = Number(id)
@@ -52,6 +127,12 @@ export default function Detail() {
       })
     }
   }
+
+  const startDisplay = getDisplayDate(startDate)
+  const endDisplay = getDisplayDate(endDate)
+  const selectedRoom = roomTypes.find(room => room.id === selectedRoomId)
+  const roomCount = roomIndex + 1
+  const totalPrice = selectedRoom ? selectedRoom.price * roomCount * calcDays() : 0
 
   return (
     <View className='detail-page'>
@@ -113,6 +194,46 @@ export default function Detail() {
         {/* 房型选择区域 */}
         <View className='room-section'>
           <Text className='room-title'>选择房型</Text>
+          <View className='calendar-section'>
+            <View className='calendar-card'>
+              <View className='calendar-row'>
+                <View className='date-picker'>
+                  <Text className='calendar-label'>入住</Text>
+                  <Picker mode='date' value={startDate} start={formatDateStr(today)} onChange={handleStartDateChange}>
+                    <View className='date-display'>
+                      <Text className='date-value'>{startDisplay.monthDay}</Text>
+                      <Text className='date-week'>{startDisplay.weekDay}</Text>
+                    </View>
+                  </Picker>
+                </View>
+                <View className='calendar-divider'>-</View>
+                <View className='date-picker'>
+                  <Text className='calendar-label'>离店</Text>
+                  <Picker mode='date' value={endDate} start={startDate} onChange={handleEndDateChange}>
+                    <View className='date-display'>
+                      <Text className='date-value'>{endDisplay.monthDay}</Text>
+                      <Text className='date-week'>{endDisplay.weekDay}</Text>
+                    </View>
+                  </Picker>
+                </View>
+              </View>
+              <View className='people-row'>
+                <Picker mode='selector' range={guestOptions} value={guestIndex} onChange={handleGuestChange}>
+                  <View className='people-item'>
+                    <Text className='people-label'>人数</Text>
+                    <Text className='people-value'>{guestOptions[guestIndex]}</Text>
+                  </View>
+                </Picker>
+                <View className='people-divider'></View>
+                <Picker mode='selector' range={roomOptions} value={roomIndex} onChange={handleRoomChange}>
+                  <View className='people-item'>
+                    <Text className='people-label'>房间</Text>
+                    <Text className='people-value'>{roomOptions[roomIndex]}</Text>
+                  </View>
+                </Picker>
+              </View>
+            </View>
+          </View>
           {roomTypes.map((room) => (
             <View 
               key={room.id} 
@@ -145,42 +266,16 @@ export default function Detail() {
           <View className='room-spacer'></View>
         </View>
 
-        {/* 已选房型详情 */}
-        {selectedRoomId && (
-          <View className='selected-room-detail'>
-            <View className='detail-header'>
-              <Text className='detail-label'>已选房型详情</Text>
-            </View>
-            {(() => {
-              const room = roomTypes.find(r => r.id === selectedRoomId)
-              return (
-                <View className='detail-content'>
-                  <View className='detail-row'>
-                    <Text className='detail-key'>房型名称</Text>
-                    <Text className='detail-value'>{room.name}</Text>
-                  </View>
-                  <View className='detail-row'>
-                    <Text className='detail-key'>房间面积</Text>
-                    <Text className='detail-value'>{room.area}</Text>
-                  </View>
-                  <View className='detail-row'>
-                    <Text className='detail-key'>床型配置</Text>
-                    <Text className='detail-value'>{room.bed}</Text>
-                  </View>
-                  <View className='detail-row'>
-                    <Text className='detail-key'>房间特色</Text>
-                    <Text className='detail-value'>{room.features.join(' · ')}</Text>
-                  </View>
-                </View>
-              )
-            })()}
-          </View>
-        )}
       </View>
 
       <View className='bottom-bar'>
         <Button className='book-btn' onClick={handleBook}>
-          {selectedRoomId ? '立即预订' : '请先选择房型'}
+          {selectedRoomId ? (
+            <View className='book-btn-content'>
+              <Text className='book-total'>¥{totalPrice}</Text>
+              <Text className='book-text'>立即预订</Text>
+            </View>
+          ) : '请先选择房型'}
         </Button>
       </View>
     </View>
