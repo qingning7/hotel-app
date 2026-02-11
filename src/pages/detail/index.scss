@@ -384,11 +384,136 @@
           margin: 0 12px;
         }
 
-        .room-spacer {
-          height: 100px;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 16px 0 10px;
+      }
+
+      .section-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2a37;
+      }
+
+      .section-subtitle {
+        font-size: 11px;
+        color: #8a96a8;
+        background: #f3f5f7;
+        padding: 2px 8px;
+        border-radius: 999px;
+      }
+
+      .policy-section {
+        margin-top: 6px;
+      }
+
+      .policy-card {
+        background: #fff;
+        border: 1px solid #e6e9f0;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+      }
+
+      .policy-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 8px;
+
+        &:last-child {
+          margin-bottom: 0;
         }
       }
 
+      .policy-label {
+        font-size: 12px;
+        color: #8a96a8;
+        flex: 0 0 86px;
+        margin-right: 10px;
+        font-weight: 500;
+      }
+
+      .policy-value {
+        font-size: 12px;
+        color: #2b2f36;
+        text-align: left;
+        flex: 1;
+        word-break: break-word;
+      }
+
+      .facility-section {
+        margin-top: 12px;
+      }
+
+      .facility-card {
+        background: #fff;
+        border: 1px solid #e6e9f0;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+      }
+
+      .facility-group {
+        margin-bottom: 12px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .facility-title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+
+      .facility-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #8fb7ee;
+      }
+
+      .facility-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1f2a37;
+      }
+
+      .facility-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 16px;
+      }
+
+      .facility-item {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .facility-text {
+        font-size: 12px;
+        color: #2b2f36;
+      }
+
+      .facility-badge {
+        font-size: 10px;
+        color: #0086f6;
+        background: #e7f1ff;
+        padding: 1px 6px;
+        border-radius: 999px;
+      }
+
+      .detail-spacer {
+        height: 110px;
+      }
     }
   
     .bottom-bar {

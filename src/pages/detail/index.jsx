@@ -43,6 +43,36 @@ export default function Detail() {
 
   const guestOptions = ['1人', '2人', '3人', '4人', '5人', '6人']
   const roomOptions = ['1间', '2间', '3间', '4间']
+  const policyItems = [
+    { label: '入住时间', value: '14:00后' },
+    { label: '离店时间', value: '12:00前' },
+    { label: '早餐', value: '自助早餐 07:00-10:00' },
+    { label: '儿童政策', value: '1.2米以下儿童可免费入住' },
+    { label: '取消规则', value: '入住前1天可免费取消' },
+    { label: '押金', value: '需押金，离店退还' }
+  ]
+  const facilityGroups = [
+    {
+      title: '交通服务',
+      items: [{ text: '公共停车场', badge: '免费' }, { text: '叫车服务' }]
+    },
+    {
+      title: '亲子设施',
+      items: [{ text: '儿童拖鞋' }, { text: '儿童牙刷' }]
+    },
+    {
+      title: '餐饮服务',
+      items: [{ text: '餐厅' }, { text: '咖啡厅' }, { text: '大堂吧' }, { text: '售货亭/便利店' }]
+    },
+    {
+      title: '前台服务',
+      items: [{ text: '行李寄存', badge: '免费' }, { text: '叫醒服务' }, { text: '礼宾服务' }, { text: '前台贵重物品保险柜' }]
+    },
+    {
+      title: '康体设施',
+      items: [{ text: '足浴' }, { text: 'Spa' }]
+    }
+  ]
 
   const openCalendar = (field = 'start') => {
     setCalendarField(field)
@@ -254,9 +284,48 @@ export default function Detail() {
               <View className='room-book-tag'>订</View>
             </View>
           ))}
-          <View className='room-spacer'></View>
+          <View className='policy-section'>
+            <View className='section-header'>
+              <Text className='section-title'>政策须知</Text>
+              <Text className='section-subtitle'>入住必读</Text>
+            </View>
+            <View className='policy-card'>
+              {policyItems.map((item) => (
+                <View className='policy-row' key={item.label}>
+                  <Text className='policy-label'>{item.label}</Text>
+                  <Text className='policy-value'>{item.value}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+
+          <View className='facility-section'>
+            <View className='section-header'>
+              <Text className='section-title'>设施服务</Text>
+              <Text className='section-subtitle'>酒店配套</Text>
+            </View>
+          <View className='facility-card'>
+            {facilityGroups.map((group) => (
+              <View className='facility-group' key={group.title}>
+                <View className='facility-title'>
+                  <View className='facility-dot'></View>
+                  <Text className='facility-name'>{group.title}</Text>
+                </View>
+                <View className='facility-grid'>
+                  {group.items.map((item) => (
+                    <View className='facility-item' key={item.text}>
+                      <Text className='facility-text'>{item.text}</Text>
+                      {item.badge && <Text className='facility-badge'>{item.badge}</Text>}
+                    </View>
+                  ))}
+                </View>
+              </View>
+              ))}
+            </View>
+          </View>
         </View>
 
+        <View className='detail-spacer'></View>
       </View>
 
       <View className='bottom-bar'>
