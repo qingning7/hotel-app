@@ -2,6 +2,7 @@ import Taro, { useRouter } from '@tarojs/taro'
 import { View, Text, Image, Button, Swiper, SwiperItem, Picker } from '@tarojs/components'
 import { useState } from 'react'
 import { getHotelById } from '../../mockData'
+import CalendarModal from '../../components/CalendarModal'
 import './index.scss'
 
 export default function Detail() {
@@ -37,9 +38,26 @@ export default function Detail() {
   const [endDate, setEndDate] = useState(formatDateStr(tomorrow))
   const [guestIndex, setGuestIndex] = useState(0)
   const [roomIndex, setRoomIndex] = useState(0)
+  const [calendarVisible, setCalendarVisible] = useState(false)
+  const [calendarField, setCalendarField] = useState('start')
 
   const guestOptions = ['1人', '2人', '3人', '4人', '5人', '6人']
   const roomOptions = ['1间', '2间', '3间', '4间']
+
+  const openCalendar = (field = 'start') => {
+    setCalendarField(field)
+    setCalendarVisible(true)
+  }
+
+  const closeCalendar = () => {
+    setCalendarVisible(false)
+  }
+
+  const handleCalendarConfirm = (newStart, newEnd) => {
+    setStartDate(newStart)
+    setEndDate(newEnd)
+    setCalendarVisible(false)
+  }
 
   const calcDays = () => {
     const start = new Date(startDate)
@@ -48,33 +66,6 @@ export default function Detail() {
     return diff > 0 ? diff : 0
   }
 
-  const handleStartDateChange = (e) => {
-    const newStartStr = e.detail.value
-    setStartDate(newStartStr)
-
-    const newStart = new Date(newStartStr)
-    const currentEnd = new Date(endDate)
-    if (newStart >= currentEnd) {
-      const nextDay = new Date(newStart)
-      nextDay.setDate(newStart.getDate() + 1)
-      setEndDate(formatDateStr(nextDay))
-    }
-  }
-
-  const handleEndDateChange = (e) => {
-    const newEndStr = e.detail.value
-    const newEnd = new Date(newEndStr)
-    const currentStart = new Date(startDate)
-
-    if (newEnd <= currentStart) {
-      Taro.showToast({
-        title: '离店日期需晚于入住日期',
-        icon: 'none'
-      })
-      return
-    }
-    setEndDate(newEndStr)
-  }
 
   const handleGuestChange = (e) => {
     setGuestIndex(Number(e.detail.value))
@@ -197,24 +188,23 @@ export default function Detail() {
           <View className='calendar-section'>
             <View className='calendar-card'>
               <View className='calendar-row'>
-                <View className='date-picker'>
+                <View className='date-picker' onClick={() => openCalendar('start')}>
                   <Text className='calendar-label'>入住</Text>
-                  <Picker mode='date' value={startDate} start={formatDateStr(today)} onChange={handleStartDateChange}>
-                    <View className='date-display'>
-                      <Text className='date-value'>{startDisplay.monthDay}</Text>
-                      <Text className='date-week'>{startDisplay.weekDay}</Text>
-                    </View>
-                  </Picker>
+                  <View className='date-display'>
+                    <Text className='date-value'>{startDisplay.monthDay}</Text>
+                    <Text className='date-week'>{startDisplay.weekDay}</Text>
+                  </View>
                 </View>
-                <View className='calendar-divider'>-</View>
-                <View className='date-picker'>
+                <View className='calendar-divider'>
+                  <Text className='divider-line'>-</Text>
+                  <View className='night-count'>{calcDays()}晚</View>
+                </View>
+                <View className='date-picker' onClick={() => openCalendar('end')}>
                   <Text className='calendar-label'>离店</Text>
-                  <Picker mode='date' value={endDate} start={startDate} onChange={handleEndDateChange}>
-                    <View className='date-display'>
-                      <Text className='date-value'>{endDisplay.monthDay}</Text>
-                      <Text className='date-week'>{endDisplay.weekDay}</Text>
-                    </View>
-                  </Picker>
+                  <View className='date-display'>
+                    <Text className='date-value'>{endDisplay.monthDay}</Text>
+                    <Text className='date-week'>{endDisplay.weekDay}</Text>
+                  </View>
                 </View>
               </View>
               <View className='people-row'>
@@ -270,14 +260,28 @@ export default function Detail() {
 
       <View className='bottom-bar'>
         <Button className='book-btn' onClick={handleBook}>
-          {selectedRoomId ? (
-            <View className='book-btn-content'>
-              <Text className='book-total'>¥{totalPrice}</Text>
-              <Text className='book-text'>立即预订</Text>
-            </View>
-          ) : '请先选择房型'}
+          <View className='book-btn-content'>
+            {selectedRoomId ? (
+              <>
+                <Text className='book-total'>¥{totalPrice}</Text>
+                <Text className='book-text'>立即预订</Text>
+              </>
+            ) : (
+              <Text className='book-text'>请先选择房型</Text>
+            )}
+          </View>
         </Button>
       </View>
+
+      <CalendarModal
+        visible={calendarVisible}
+        startDate={startDate}
+        endDate={endDate}
+        minDate={formatDateStr(today)}
+        defaultField={calendarField}
+        onClose={closeCalendar}
+        onConfirm={handleCalendarConfirm}
+      />
     </View>
   )
 }

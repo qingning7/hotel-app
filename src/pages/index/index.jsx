@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import Taro from '@tarojs/taro'
-import { View, Text, Image, Picker, Swiper, SwiperItem } from '@tarojs/components'
+import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
 import { getBannersByCity, getHotelById } from '../../mockData'
+import CalendarModal from '../../components/CalendarModal'
 import './index.scss'
 
 const GEO_KEY = __TENCENT_MAP_KEY__
@@ -65,6 +66,23 @@ export default function Index() {
 
   const [startDate, setStartDate] = useState(formatDateStr(today))
   const [endDate, setEndDate] = useState(formatDateStr(tomorrow))
+  const [calendarVisible, setCalendarVisible] = useState(false)
+  const [calendarField, setCalendarField] = useState('start')
+
+  const openCalendar = (field = 'start') => {
+    setCalendarField(field)
+    setCalendarVisible(true)
+  }
+
+  const closeCalendar = () => {
+    setCalendarVisible(false)
+  }
+
+  const handleCalendarConfirm = (newStart, newEnd) => {
+    setStartDate(newStart)
+    setEndDate(newEnd)
+    setCalendarVisible(false)
+  }
 
   // 计算天数
   const calcDays = () => {
@@ -75,35 +93,6 @@ export default function Index() {
   }
 
   // 处理入住日期变更
-  const handleStartDateChange = (e) => {
-    const newStartStr = e.detail.value
-    setStartDate(newStartStr)
-
-    // 如果入住日期晚于或等于离店日期，则自动将离店日期设为入住日期后一天
-    const newStart = new Date(newStartStr)
-    const currentEnd = new Date(endDate)
-    if (newStart >= currentEnd) {
-      const nextDay = new Date(newStart)
-      nextDay.setDate(newStart.getDate() + 1)
-      setEndDate(formatDateStr(nextDay))
-    }
-  }
-
-  // 处理离店日期变更
-  const handleEndDateChange = (e) => {
-    const newEndStr = e.detail.value
-    const newEnd = new Date(newEndStr)
-    const currentStart = new Date(startDate)
-
-    if (newEnd <= currentStart) {
-      Taro.showToast({
-        title: '离店日期需晚于入住日期',
-        icon: 'none'
-      })
-      return
-    }
-    setEndDate(newEndStr)
-  }
 
   const handleLocate = async (options = {}) => {
     const { silent = false } = options
@@ -250,32 +239,28 @@ export default function Index() {
           <View className='date-box'>
             <Text className='label'>入住 - 离店</Text>
             <View className='picker-group' style={{ display: 'flex', alignItems: 'center', marginTop: '5px' }}>
-              <Picker mode='date' value={startDate} start={formatDateStr(today)} onChange={handleStartDateChange}>
-                <View className='date-display'>
-                  <Text className='date-val' style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                    {startDisplay.monthDay}
-                  </Text>
-                  <Text className='date-week' style={{ fontSize: '12px', color: '#666', marginLeft: '4px' }}>
-                    {startDisplay.weekDay}
-                  </Text>
-                </View>
-              </Picker>
+              <View className='date-display' onClick={() => openCalendar('start')}>
+                <Text className='date-val' style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                  {startDisplay.monthDay}
+                </Text>
+                <Text className='date-week' style={{ fontSize: '12px', color: '#666', marginLeft: '4px' }}>
+                  {startDisplay.weekDay}
+                </Text>
+              </View>
               <View className='date-divider' style={{ margin: '0 10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <Text style={{ color: '#ccc', fontSize: '12px' }}>—</Text>
                 <View className='day-count' style={{ background: '#f0f7ff', color: '#0086f6', padding: '1px 6px', borderRadius: '10px', fontSize: '10px', marginTop: '2px' }}>
                   {calcDays()}晚
                 </View>
               </View>
-              <Picker mode='date' value={endDate} start={startDate} onChange={handleEndDateChange}>
-                <View className='date-display'>
-                  <Text className='date-val' style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                    {endDisplay.monthDay}
-                  </Text>
-                  <Text className='date-week' style={{ fontSize: '12px', color: '#666', marginLeft: '4px' }}>
-                    {endDisplay.weekDay}
-                  </Text>
-                </View>
-              </Picker>
+              <View className='date-display' onClick={() => openCalendar('end')}>
+                <Text className='date-val' style={{ fontSize: '18px', fontWeight: 'bold' }}>
+                  {endDisplay.monthDay}
+                </Text>
+                <Text className='date-week' style={{ fontSize: '12px', color: '#666', marginLeft: '4px' }}>
+                  {endDisplay.weekDay}
+                </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -288,6 +273,16 @@ export default function Index() {
 
       {/* 底部留白，增加呼吸感 */}
       <View style={{ height: '50px' }}></View>
+
+      <CalendarModal
+        visible={calendarVisible}
+        startDate={startDate}
+        endDate={endDate}
+        minDate={formatDateStr(today)}
+        defaultField={calendarField}
+        onClose={closeCalendar}
+        onConfirm={handleCalendarConfirm}
+      />
     </View>
   )
 }

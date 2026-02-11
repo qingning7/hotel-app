@@ -132,6 +132,12 @@
       padding: 2px 8px;
       border-radius: 10px;
     }
+
+    .date-display {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
   }
 
   .search-btn {

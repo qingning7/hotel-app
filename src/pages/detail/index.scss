@@ -286,10 +286,18 @@
         }
 
         .calendar-divider {
-          width: 18px;
-          text-align: center;
+          width: 40px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
+        }
+
+        .divider-line {
           color: #cbd5e1;
           font-size: 12px;
+          line-height: 1;
         }
 
         .date-picker {
@@ -297,6 +305,7 @@
           background: #f8fafc;
           border-radius: 12px;
           padding: 10px;
+          cursor: pointer;
         }
 
         .calendar-label {
@@ -384,6 +393,10 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
+        height: 96px;
+        padding: 0 24px;
+        font-size: 40px;
+        line-height: 96px;
 
         &:disabled {
           opacity: 0.6;
@@ -394,15 +407,16 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        line-height: 1;
       }
 
       .book-total {
-        font-size: 18px;
+        font-size: inherit;
         font-weight: 700;
       }
 
       .book-text {
-        font-size: 16px;
+        font-size: inherit;
         font-weight: 600;
       }
     }
