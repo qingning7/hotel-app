@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Taro from '@tarojs/taro'
-import { View, Text, Image, Swiper, SwiperItem } from '@tarojs/components'
-import { getBannersByCity, getHotelById } from '../../mockData'
+import { View, Text, Image, Swiper, SwiperItem, ScrollView } from '@tarojs/components'
+import { getBannersByCity, getHotelById, getHotelsByCity } from '../../mockData'
 import CalendarModal from '../../components/CalendarModal'
 import './index.scss'
 
@@ -12,6 +12,18 @@ const normalizeCityName = (name = '') => name.trim().replace(/市$/, '')
 export default function Index() {
   const [cityName, setCityName] = useState('上海')
   const [locating, setLocating] = useState(false)
+  const hotCities = ['上海', '北京', '广州', '深圳', '成都', '杭州', '重庆', '三亚']
+  const [recommendCity, setRecommendCity] = useState(hotCities[0])
+  const hotCityCards = [
+    { city: '上海', img: 'https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=800&q=80' },
+    { city: '北京', img: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=800&q=80' },
+    { city: '广州', img: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80' },
+    { city: '深圳', img: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=800&q=80' },
+    { city: '成都', img: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=800&q=80' },
+    { city: '杭州', img: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80' },
+    { city: '重庆', img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80' },
+    { city: '三亚', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80' }
+  ]
 
   // 从 mockData 获取 banner 数据，并关联酒店信息
   const banners = getBannersByCity(cityName).map(banner => ({
@@ -20,6 +32,12 @@ export default function Index() {
   }))
 
   const [currentBanner, setCurrentBanner] = useState(0)
+
+  useEffect(() => {
+    if (hotCities.includes(cityName)) {
+      setRecommendCity(cityName)
+    }
+  }, [cityName])
 
   // 处理轮播图切换
   const handleSwiperChange = (e) => {
@@ -165,7 +183,9 @@ export default function Index() {
       title: '选择目的地',
       editable: true,
       success: (res) => {
-        if (res.confirm && res.content) setCityName(normalizeCityName(res.content))
+        if (res.confirm && res.content) {
+          setCityName(normalizeCityName(res.content))
+        }
       }
     })
   }
@@ -182,8 +202,34 @@ export default function Index() {
     })
   }
 
+  const handleHotCityClick = (city) => {
+    setCityName(city)
+  }
+
+  const handleRecommendTab = (tab) => {
+    setRecommendCity(tab)
+  }
+
+  const handleRecommendClick = (hotel) => {
+    Taro.navigateTo({
+      url: `/pages/detail/index?id=${hotel.id}&name=${hotel.name}&price=${hotel.price}&star=${hotel.star}&img=${encodeURIComponent(hotel.img)}&city=${recommendCity}`
+    })
+  }
+
+  const rotateHotels = (items, offset) => {
+    if (!items.length) return items
+    const shift = ((offset % items.length) + items.length) % items.length
+    return items.slice(shift).concat(items.slice(0, shift))
+  }
+
   const startDisplay = getDisplayDate(startDate)
   const endDisplay = getDisplayDate(endDate)
+  const recommendIndex = hotCities.indexOf(recommendCity)
+  const recommendHotels = rotateHotels(
+    getHotelsByCity(recommendCity),
+    recommendIndex === -1 ? 0 : recommendIndex
+  ).slice(0, 4)
+  const recommendTabs = hotCities
 
   return (
     <View className='index'>
@@ -271,7 +317,75 @@ export default function Index() {
         </View>
       </View>
 
-      {/* 底部留白，增加呼吸感 */}
+      <View className='hot-city-section'>
+        <View className='hot-city-header'>
+          <Text className='hot-city-title'>热门城市</Text>
+          <Text className='hot-city-sub'>精选目的地</Text>
+        </View>
+        <View className='hot-city-grid'>
+          {hotCityCards.map((item) => (
+            <View
+              key={item.city}
+              className='hot-city-card'
+              onClick={() => handleHotCityClick(item.city)}
+            >
+              <Image className='hot-city-img' src={item.img} mode='aspectFill' />
+              <View className='hot-city-overlay'></View>
+              <View className='hot-city-info'>
+                <Text className='hot-city-name'>{item.city}</Text>
+                <Text className='hot-city-tag'>立即出发</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      <View className='recommend-section'>
+        <View className='recommend-header'>
+          <Text className='recommend-title'>酒店推荐</Text>
+          <Text className='recommend-tip'>热门城市</Text>
+        </View>
+        <ScrollView className='recommend-tabs' scrollX showScrollbar={false}>
+          <View className='recommend-tab-track'>
+            {recommendTabs.map((tab) => (
+              <View
+                key={tab}
+                className={`recommend-tab ${recommendCity === tab ? 'active' : ''}`}
+                onClick={() => handleRecommendTab(tab)}
+              >
+                {tab}
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+        <ScrollView className='recommend-list' scrollX showScrollbar={false}>
+          <View className='recommend-track'>
+            {recommendHotels.map((hotel) => (
+              <View
+                key={`${recommendCity}-${hotel.id}`}
+                className='recommend-card'
+                onClick={() => handleRecommendClick(hotel)}
+              >
+                <Image className='recommend-img' src={hotel.img} mode='aspectFill' />
+                <View className='recommend-body'>
+                  <Text className='recommend-name'>{hotel.name}</Text>
+                  <View className='recommend-score'>
+                    <Text className='score-badge'>{hotel.score}</Text>
+                    <Text className='score-text'>{hotel.scoreDesc}</Text>
+                    <Text className='score-reviews'>{hotel.reviews}条点评</Text>
+                  </View>
+                  <View className='recommend-price'>
+                    <Text className='price-symbol'>¥</Text>
+                    <Text className='price-value'>{hotel.price}</Text>
+                    <Text className='price-unit'>/晚起</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      </View>
+
       <View style={{ height: '50px' }}></View>
 
       <CalendarModal
