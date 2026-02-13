@@ -18,11 +18,11 @@ export const hotelTemplates = [
         count: 2,
         img: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400',
         roomTypes: [
-            { id: 1, name: '豪华单人间', price: 188, area: '30㎡', bed: '一张1.2米单人床', features: ['市景', 'WiFi', '浴缸'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '商务大床房', price: 228, area: '35㎡', bed: '一张1.8米大床', features: ['景观房', 'WiFi', '办公区'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '标准双床房', price: 238, area: '38㎡', bed: '两张1.2米单人床', features: ['市景', 'WiFi', '淋浴间'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '行政豪华房', price: 258, area: '45㎡', bed: '一张1.8米大床', features: ['行政酒廊', '免费饮品', '景观阳台'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '总统套房', price: 338, area: '80㎡', bed: '一张1.8米大床+客厅', features: ['私人阳台', '独立客厅', '奢华浴室'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '豪华单人间', price: 188, area: '30㎡', bed: '一张1.2米单人床', features: ['市景', 'WiFi', '浴缸'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '商务大床房', price: 228, area: '35㎡', bed: '一张1.8米大床', features: ['景观房', 'WiFi', '办公区'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '标准双床房', price: 238, area: '38㎡', bed: '两张1.2米单人床', features: ['市景', 'WiFi', '淋浴间'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '行政豪华房', price: 258, area: '45㎡', bed: '一张1.8米大床', features: ['行政酒廊', '免费饮品', '景观阳台'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '总统套房', price: 338, area: '80㎡', bed: '一张1.8米大床+客厅', features: ['私人阳台', '独立客厅', '奢华浴室'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -43,11 +43,11 @@ export const hotelTemplates = [
         count: 5,
         img: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400',
         roomTypes: [
-            { id: 1, name: '精品单人房', price: 220, area: '24㎡', bed: '一张1.2米单人床', features: ['时尚设计', '免费WiFi', '独立卫浴'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '精品大床房', price: 335, area: '28㎡', bed: '一张1.8米大床', features: ['景观窗', '艺术装饰', '淋浴房'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '时尚双床房', price: 399, area: '32㎡', bed: '两张1.2米单人床', features: ['现代风格', '分离卫浴', '工作台'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '豪华大床房', price: 350, area: '40㎡', bed: '一张1.8米大床', features: ['浴缸淋浴', '独立客厅', 'VIP待遇'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '精品套房', price: 399, area: '55㎡', bed: '一张1.8米大床+沙发', features: ['超大客厅', '景观浴室', '迷你吧'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '精品单人房', price: 220, area: '24㎡', bed: '一张1.2米单人床', features: ['时尚设计', '免费WiFi', '独立卫浴'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '精品大床房', price: 335, area: '28㎡', bed: '一张1.8米大床', features: ['景观窗', '艺术装饰', '淋浴房'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '时尚双床房', price: 399, area: '32㎡', bed: '两张1.2米单人床', features: ['现代风格', '分离卫浴', '工作台'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '豪华大床房', price: 350, area: '40㎡', bed: '一张1.8米大床', features: ['浴缸淋浴', '独立客厅', 'VIP待遇'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '精品套房', price: 399, area: '55㎡', bed: '一张1.8米大床+沙发', features: ['超大客厅', '景观浴室', '迷你吧'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -68,11 +68,11 @@ export const hotelTemplates = [
         count: 3,
         img: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400',
         roomTypes: [
-            { id: 1, name: '云端景观单间', price: 388, area: '32㎡', bed: '一张1.2米单人床', features: ['超高层景观', '全景窗', '智能系统'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '云端大床房', price: 388, area: '40㎡', bed: '一张1.8米大床', features: ['270度景观', '落地窗', 'WiFi6'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '云端双床房', price: 428, area: '45㎡', bed: '两张1.2米单人床', features: ['云端视野', '景观卫浴', '黄浦江景'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '云端豪华房', price: 528, area: '55㎡', bed: '一张1.8米大床', features: ['行政服务', '独家服务', '顶级配置'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '云端帝景套房', price: 688, area: '120㎡', bed: '一张1.8米大床+大客厅', features: ['私人管家', '独占一角景观', '顶级奢华'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '云端景观单间', price: 388, area: '32㎡', bed: '一张1.2米单人床', features: ['超高层景观', '全景窗', '智能系统'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '云端大床房', price: 388, area: '40㎡', bed: '一张1.8米大床', features: ['270度景观', '落地窗', 'WiFi6'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '云端双床房', price: 428, area: '45㎡', bed: '两张1.2米单人床', features: ['云端视野', '景观卫浴', '黄浦江景'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '云端豪华房', price: 528, area: '55㎡', bed: '一张1.8米大床', features: ['行政服务', '独家服务', '顶级配置'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '云端帝景套房', price: 688, area: '120㎡', bed: '一张1.8米大床+大客厅', features: ['私人管家', '独占一角景观', '顶级奢华'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -93,11 +93,11 @@ export const hotelTemplates = [
         count: 8,
         img: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=400',
         roomTypes: [
-            { id: 1, name: '商务单人间', price: 288, area: '26㎡', bed: '一张1.2米单人床', features: ['工作台', '免费WiFi', '商务级设施'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '商务大床房', price: 308, area: '32㎡', bed: '一张1.8米大床', features: ['办公区', '24h服务', '高速WiFi'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '商务双床房', price: 388, area: '36㎡', bed: '两张1.2米单人床', features: ['双工作台', '会议设施', '优质床品'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '高级商务房', price: 588, area: '42㎡', bed: '一张1.8米大床', features: ['客厅区', '行政大堂', '高端配置'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '商务套房', price: 688, area: '65㎡', bed: '一张1.8米大床+客厅', features: ['会议室', '独立厨房', '总经理级'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '商务单人间', price: 288, area: '26㎡', bed: '一张1.2米单人床', features: ['工作台', '免费WiFi', '商务级设施'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '商务大床房', price: 308, area: '32㎡', bed: '一张1.8米大床', features: ['办公区', '24h服务', '高速WiFi'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '商务双床房', price: 388, area: '36㎡', bed: '两张1.2米单人床', features: ['双工作台', '会议设施', '优质床品'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '高级商务房', price: 588, area: '42㎡', bed: '一张1.8米大床', features: ['客厅区', '行政大堂', '高端配置'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '商务套房', price: 688, area: '65㎡', bed: '一张1.8米大床+客厅', features: ['会议室', '独立厨房', '总经理级'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -118,11 +118,11 @@ export const hotelTemplates = [
         count: 2,
         img: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400',
         roomTypes: [
-            { id: 1, name: '优雅小床房', price: 210, area: '28㎡', bed: '一张1.2米单人床', features: ['精致设计', '管家服务', '私密空间'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '优雅大床房', price: 288, area: '36㎡', bed: '一张1.8米大床', features: ['庄园风格', '免费WiFi', '高级寝具'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '优雅双床房', price: 318, area: '40㎡', bed: '两张1.2米单人床', features: ['花园景观', '共享酒廊', '下午茶'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '私享豪华房', price: 358, area: '48㎡', bed: '一张1.8米大床', features: ['管家服务', '私人酒廊', '优先权'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '私享套房', price: 588, area: '72㎡', bed: '一张1.8米大床+客厅', features: ['私人管家', '专属酒廊', '奢侈体验'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '优雅小床房', price: 210, area: '28㎡', bed: '一张1.2米单人床', features: ['精致设计', '管家服务', '私密空间'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '优雅大床房', price: 288, area: '36㎡', bed: '一张1.8米大床', features: ['庄园风格', '免费WiFi', '高级寝具'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '优雅双床房', price: 318, area: '40㎡', bed: '两张1.2米单人床', features: ['花园景观', '共享酒廊', '下午茶'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '私享豪华房', price: 358, area: '48㎡', bed: '一张1.8米大床', features: ['管家服务', '私人酒廊', '优先权'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '私享套房', price: 588, area: '72㎡', bed: '一张1.8米大床+客厅', features: ['私人管家', '专属酒廊', '奢侈体验'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -143,11 +143,11 @@ export const hotelTemplates = [
         count: 4,
         img: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400',
         roomTypes: [
-            { id: 1, name: '单间公寓', price: 198, area: '35㎡', bed: '一张1.8米大床', features: ['厨房', '洗衣机', '长住优惠'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '一居室公寓', price: 299, area: '45㎡', bed: '一张1.8米大床', features: ['独立厨房', '餐厅', '客厅'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '家庭一居室', price: 399, area: '52㎡', bed: '一张1.8米大床+一张1.2米单人床', features: ['完整厨房', '洗衣房', '儿童区'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '双卧家庭公寓', price: 459, area: '65㎡', bed: '两张1.8米大床', features: ['开放厨房', '餐厅', '充裕空间'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '豪华三居公寓', price: 559, area: '90㎡', bed: '三张1.8米大床+客厅', features: ['全配厨房', '洗衣房', '家庭首选'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '单间公寓', price: 198, area: '35㎡', bed: '一张1.8米大床', features: ['厨房', '洗衣机', '长住优惠'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '一居室公寓', price: 299, area: '45㎡', bed: '一张1.8米大床', features: ['独立厨房', '餐厅', '客厅'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '家庭一居室', price: 399, area: '52㎡', bed: '一张1.8米大床+一张1.2米单人床', features: ['完整厨房', '洗衣房', '儿童区'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '双卧家庭公寓', price: 459, area: '65㎡', bed: '两张1.8米大床', features: ['开放厨房', '餐厅', '充裕空间'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '豪华三居公寓', price: 559, area: '90㎡', bed: '三张1.8米大床+客厅', features: ['全配厨房', '洗衣房', '家庭首选'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -168,11 +168,11 @@ export const hotelTemplates = [
         count: 1,
         img: 'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400',
         roomTypes: [
-            { id: 1, name: '艺术单人间', price: 458, area: '28㎡', bed: '一张1.2米单人床', features: ['艺术装置', '河畔景观', '美学设计'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '艺术大床房', price: 498, area: '35㎡', bed: '一张1.8米大床', features: ['创意装饰', '设计感强', '河景'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '艺术双床房', price: 599, area: '40㎡', bed: '两张1.2米单人床', features: ['装置艺术', '现代风格', '采光好'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '格调豪华房', price: 799, area: '48㎡', bed: '一张1.8米大床', features: ['私人美术馆', '设计师房', '顶级美学'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '设计师套房', price: 1099, area: '70㎡', bed: '一张1.8米大床+客厅', features: ['艺术收藏', '创意客厅', '河畔景观'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '艺术单人间', price: 458, area: '28㎡', bed: '一张1.2米单人床', features: ['艺术装置', '河畔景观', '美学设计'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '艺术大床房', price: 498, area: '35㎡', bed: '一张1.8米大床', features: ['创意装饰', '设计感强', '河景'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '艺术双床房', price: 599, area: '40㎡', bed: '两张1.2米单人床', features: ['装置艺术', '现代风格', '采光好'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '格调豪华房', price: 799, area: '48㎡', bed: '一张1.8米大床', features: ['私人美术馆', '设计师房', '顶级美学'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '设计师套房', price: 1099, area: '70㎡', bed: '一张1.8米大床+客厅', features: ['艺术收藏', '创意客厅', '河畔景观'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     },
     {
@@ -193,11 +193,11 @@ export const hotelTemplates = [
         count: 6,
         img: 'https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=400',
         roomTypes: [
-            { id: 1, name: '都市便利间', price: 158, area: '26㎡', bed: '一张1.2米单人床', features: ['高效设计', '免费WiFi', '快速入住'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 2, name: '都市大床房', price: 299, area: '32㎡', bed: '一张1.8米大床', features: ['市景', '现代装修', '便利设施'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 3, name: '活力双床房', price: 358, area: '36㎡', bed: '两张1.2米单人床', features: ['城市景观', '年轻风格', '社交空间'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 4, name: '景观高级房', price: 399, area: '44㎡', bed: '一张1.8米大床', features: ['屋顶泳池景', '泳池通道', '时尚设计'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' },
-            { id: 5, name: '时尚景观套房', price: 408, area: '68㎡', bed: '一张1.8米大床+客厅', features: ['全景阳台', '泳池景观', '尊享服务'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=90' }
+            { id: 1, name: '都市便利间', price: 158, area: '26㎡', bed: '一张1.2米单人床', features: ['高效设计', '免费WiFi', '快速入住'], img: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 2, name: '都市大床房', price: 299, area: '32㎡', bed: '一张1.8米大床', features: ['市景', '现代装修', '便利设施'], img: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 3, name: '活力双床房', price: 358, area: '36㎡', bed: '两张1.2米单人床', features: ['城市景观', '年轻风格', '社交空间'], img: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 4, name: '景观高级房', price: 399, area: '44㎡', bed: '一张1.8米大床', features: ['屋顶泳池景', '泳池通道', '时尚设计'], img: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' },
+            { id: 5, name: '时尚景观套房', price: 408, area: '68㎡', bed: '一张1.8米大床+客厅', features: ['全景阳台', '泳池景观', '尊享服务'], img: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=75' }
         ]
     }
 ]

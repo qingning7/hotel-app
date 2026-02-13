@@ -260,7 +260,7 @@ export default function Detail() {
               className={`room-card ${selectedRoomId === room.id ? 'active' : ''}`}
               onClick={() => handleSelectRoom(room.id)}
             >
-              <Image className='room-img' src={room.img} mode='aspectFill' />
+              <Image className='room-img' src={room.img} mode='aspectFill' lazyLoad />
               <View className='room-content'>
                 <View className='room-header'>
                   <View className='room-left'>
