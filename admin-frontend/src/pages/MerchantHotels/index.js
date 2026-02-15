@@ -59,7 +59,7 @@ export default function MerchantHotels() {
     { title: "酒店名", dataIndex: "name" },
     { title: "城市", dataIndex: "city" },
     { title: "地址", dataIndex: "address" },
-    { title: "价格/晚", dataIndex: "price" },
+    { title: "价格/晚起", dataIndex: "price" },
     {
       title: "审核状态",
       dataIndex: "status",
@@ -246,6 +246,10 @@ export default function MerchantHotels() {
                   { title: "酒店ID", dataIndex: "hotelId" },
                   { title: "入住日期", dataIndex: "checkinDate" },
                   { title: "退房日期", dataIndex: "checkoutDate" },
+                  { title: "房型", dataIndex: "roomName" },
+                  { title: "数量", dataIndex: "roomCount" },
+                  { title: "晚数", dataIndex: "nights" },
+                  { title: "总金额", dataIndex: "totalAmount", render: (v, row) => `¥${Number(v || 0)}` },
                   { title: "状态", dataIndex: "status", render: (v) => {
                     if (v === "cancel_pending") return <Tag color="gold">退订待处理</Tag>;
                     if (v === "cancelled") return <Tag color="green">已退订</Tag>;
@@ -444,11 +448,11 @@ export default function MerchantHotels() {
             <Input placeholder="例如：可加床，需另付费" />
           </Form.Item>
           <Form.Item
-            label="价格/晚"
+            label="价格/晚（元起）"
             name="price"
             rules={[{ required: true, message: "请输入价格" }]}
           >
-            <Input placeholder="例如：399" />
+            <Input placeholder="例如：399（元起）" />
           </Form.Item>
           <Form.Item label="附近热门景点（逗号分隔）" name={["nearby", "attractions"]}>
             <Input.TextArea rows={2} placeholder="例如：地标塔, 博物馆, 城市广场" />

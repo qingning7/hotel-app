@@ -255,12 +255,27 @@ app.post("/api/subscriptions", (req, res) => {
   const body = req.body || {};
   const hotel = db.hotels.find(h => h.id === body.hotelId);
   if (!hotel) return res.status(400).json({ error: "invalid_hotel" });
+  const nights = (() => {
+    const start = new Date(body.checkinDate || "");
+    const end = new Date(body.checkoutDate || "");
+    const d = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    return Number.isFinite(d) && d > 0 ? d : 1;
+  })();
+  const roomCount = Number(body.roomCount || 1);
+  const unitPrice = Number(body.unitPrice || 0);
+  const totalAmount = Number(body.totalAmount || (unitPrice * roomCount * nights));
   const sub = {
     id: String(Date.now()),
     hotelId: body.hotelId,
     username: body.username || "",
     checkinDate: body.checkinDate || "",
     checkoutDate: body.checkoutDate || "",
+    roomId: body.roomId ? String(body.roomId) : "",
+    roomName: body.roomName || "",
+    roomCount,
+    unitPrice,
+    nights,
+    totalAmount,
     createdAt: Date.now(),
     status: "active",
     cancelReason: "",
