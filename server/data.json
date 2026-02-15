@@ -80,6 +80,64 @@
       "createdBy": "merchant",
       "deleted": false,
       "createdAt": 1770800654689
+    },
+    {
+      "id": "1771064654660",
+      "name": "希尔顿国际酒店",
+      "city": "上海",
+      "address": "上海市闵行区xxx",
+      "desc": "无",
+      "price": "599",
+      "images": [
+        "http://localhost:4000/uploads/1771064651247_ddd01157dd1d3.png"
+      ],
+      "location": {
+        "lat": 0,
+        "lng": 0,
+        "address": "上海市闵行区xxx"
+      },
+      "star": 5,
+      "checkinTime": "14：00",
+      "checkoutTime": "13：00",
+      "phone": "12345678",
+      "amenities": [
+        "无"
+      ],
+      "policies": "无",
+      "status": "approved",
+      "reason": "",
+      "createdBy": "merchant",
+      "deleted": false,
+      "createdAt": 1771064654660
+    },
+    {
+      "id": "1771078509123",
+      "name": "如家酒店",
+      "city": "上海",
+      "address": "上海市闵行区xxx",
+      "desc": "无",
+      "price": "599",
+      "images": [
+        "http://localhost:4000/uploads/1771078506435_83dec243a217f.jpg"
+      ],
+      "location": {
+        "lat": 0,
+        "lng": 0,
+        "address": "上海市闵行区xxx"
+      },
+      "star": 5,
+      "checkinTime": "14：00",
+      "checkoutTime": "13：00",
+      "phone": "021-12345678",
+      "amenities": [
+        "无"
+      ],
+      "policies": "无",
+      "status": "approved",
+      "reason": "",
+      "createdBy": "merchant",
+      "deleted": false,
+      "createdAt": 1771078509123
     }
   ],
   "subscriptions": [
@@ -108,6 +166,30 @@
       "checkinDate": "2026-02-11",
       "checkoutDate": "2026-02-15",
       "createdAt": 1770801188778
+    },
+    {
+      "id": "1771062465808",
+      "hotelId": "1770800654689",
+      "username": "weapp_user",
+      "checkinDate": "2026-02-14",
+      "checkoutDate": "2026-02-15",
+      "createdAt": 1771062465808
+    },
+    {
+      "id": "1771064702409",
+      "hotelId": "1771064654660",
+      "username": "weapp_user",
+      "checkinDate": "2026-02-14",
+      "checkoutDate": "2026-02-15",
+      "createdAt": 1771064702409
+    },
+    {
+      "id": "1771078561144",
+      "hotelId": "1771078509123",
+      "username": "weapp_user",
+      "checkinDate": "2026-02-16",
+      "checkoutDate": "2026-02-19",
+      "createdAt": 1771078561144
     }
   ]
 }
