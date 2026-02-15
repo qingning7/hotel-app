@@ -156,6 +156,8 @@ export default function AdminReview() {
             <div style={{ lineHeight: 1.9 }}>
               <div>酒店名：{detail.row.name}</div>
               <div>星级：{detail.row.star}</div>
+              <div>主力房型：{detail.row.roomType || ""}</div>
+              <div>开业时间：{detail.row.opened || ""}</div>
               <div>城市：{detail.row.city}</div>
               <div>地址：{detail.row.address}</div>
               <div>价格/晚：{detail.row.price}</div>
@@ -164,9 +166,38 @@ export default function AdminReview() {
               <div>联系电话：{detail.row.phone}</div>
               <div>设施与服务：{Array.isArray(detail.row.amenities) ? detail.row.amenities.join(", ") : ""}</div>
               <div>政策与说明：{detail.row.policies}</div>
-              <div>坐标：{detail.row.location?.lat}, {detail.row.location?.lng}</div>
+              <div>早餐：{detail.row?.policyDetail?.breakfast || "-"}</div>
+              <div>儿童政策：{detail.row?.policyDetail?.childrenPolicy || "-"}</div>
+              <div>宠物政策：{detail.row?.policyDetail?.petPolicy || "-"}</div>
+              <div>押金政策：{detail.row?.policyDetail?.depositPolicy || "-"}</div>
+              <div>加床政策：{detail.row?.policyDetail?.extraBedPolicy || "-"}</div>
+              <div>周边景点：{Array.isArray(detail.row.nearby?.attractions) ? detail.row.nearby.attractions.join("、") : "-"}</div>
+              <div>周边商场：{Array.isArray(detail.row.nearby?.malls) ? detail.row.nearby.malls.join("、") : "-"}</div>
+              <div>周边交通：{Array.isArray(detail.row.nearby?.transport) ? detail.row.nearby.transport.join("、") : "-"}</div>
+              <div>优惠活动：{Array.isArray(detail.row.offers) && detail.row.offers.length > 0 ? detail.row.offers.join("、") : "-"}</div>
               <div>简介：{detail.row.desc}</div>
             </div>
+            {Array.isArray(detail.row.roomTypes) && detail.row.roomTypes.length > 0 ? (
+              <div style={{ marginTop: 12 }}>
+                <div style={{ fontWeight: 600, marginBottom: 6 }}>房型列表</div>
+                <div style={{ display: "grid", gap: 8 }}>
+                  {detail.row.roomTypes.map((r) => (
+                    <div key={r.id || r.name} style={{ border: "1px solid #eaeaea", borderRadius: 8, padding: 8 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <div>
+                          <div>{r.name}</div>
+                          <div style={{ color: "#666", fontSize: 12 }}>{r.area} · {r.bed}</div>
+                        </div>
+                        <div style={{ color: "#ff4d4f" }}>¥{r.price}</div>
+                      </div>
+                      <div style={{ marginTop: 4, color: "#555", fontSize: 12 }}>
+                        {(r.features || []).join("、")}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         ) : null}
       </Modal>

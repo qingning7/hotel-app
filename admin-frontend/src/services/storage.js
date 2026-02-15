@@ -88,3 +88,13 @@ export async function listSubscriptionsByMerchant(username) {
   if (!r.ok) throw new Error("获取订阅失败");
   return r.json();
 }
+
+export async function approveCancelSubscription({ id, reviewedBy }) {
+  const r = await fetch(`${API_BASE}/subscriptions/${id}/approve-cancel`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ reviewedBy }),
+  });
+  if (!r.ok) throw new Error("操作失败");
+  return r.json();
+}

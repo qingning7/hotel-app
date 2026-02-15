@@ -72,11 +72,29 @@ export default function HotelDetailPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginTop: 8 }}>
         <div className="card">
           <div>星级：{hotel.star || 0}</div>
+          <div>主力房型：{hotel.roomType || "—"}</div>
+          <div>开业时间：{hotel.opened || "—"}</div>
           <div>入住时间：{hotel.checkinTime || "—"}</div>
           <div>退房时间：{hotel.checkoutTime || "—"}</div>
           <div>联系电话：{hotel.phone || "—"}</div>
-          <div>坐标：{hotel.location?.lat}, {hotel.location?.lng}</div>
         </div>
+        {Array.isArray(hotel.roomTypes) && hotel.roomTypes.length > 0 ? (
+          <div className="card">
+            <div style={{ marginBottom: 6 }}>房型与价格</div>
+            <div style={{ display: "grid", gap: 8 }}>
+              {hotel.roomTypes.map((r) => (
+                <div key={r.id || r.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <div>
+                    <div style={{ fontWeight: 600 }}>{r.name}</div>
+                    <div style={{ fontSize: 12, color: "#666" }}>{r.area} · {r.bed}</div>
+                    <div style={{ fontSize: 12, color: "#666" }}>{Array.isArray(r.features) ? r.features.join("、") : ""}</div>
+                  </div>
+                  <div style={{ color: "#ff4d4f" }}>¥{r.price}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : null}
         <div className="card">
           <div style={{ marginBottom: 6 }}>设施与服务</div>
           <div>
@@ -88,6 +106,29 @@ export default function HotelDetailPage() {
         <div className="card">
           <div style={{ marginBottom: 6 }}>政策与说明</div>
           <div style={{ fontSize: 14, color: "#333" }}>{hotel.policies || "—"}</div>
+          <div style={{ marginTop: 8, fontSize: 13, color: "#444" }}>
+            <div>早餐：{hotel?.policyDetail?.breakfast || "—"}</div>
+            <div>儿童政策：{hotel?.policyDetail?.childrenPolicy || "—"}</div>
+            <div>宠物政策：{hotel?.policyDetail?.petPolicy || "—"}</div>
+            <div>押金政策：{hotel?.policyDetail?.depositPolicy || "—"}</div>
+            <div>加床政策：{hotel?.policyDetail?.extraBedPolicy || "—"}</div>
+          </div>
+        </div>
+        <div className="card">
+          <div style={{ marginBottom: 6 }}>周边</div>
+          <div style={{ fontSize: 14 }}>
+            <div>景点：{Array.isArray(hotel.nearby?.attractions) && hotel.nearby.attractions.length > 0 ? hotel.nearby.attractions.join("、") : "—"}</div>
+            <div>商场：{Array.isArray(hotel.nearby?.malls) && hotel.nearby.malls.length > 0 ? hotel.nearby.malls.join("、") : "—"}</div>
+            <div>交通：{Array.isArray(hotel.nearby?.transport) && hotel.nearby.transport.length > 0 ? hotel.nearby.transport.join("、") : "—"}</div>
+          </div>
+        </div>
+        <div className="card">
+          <div style={{ marginBottom: 6 }}>优惠活动</div>
+          <div>
+            {Array.isArray(hotel.offers) && hotel.offers.length > 0
+              ? hotel.offers.map((o) => <span key={o} className="badge">{o}</span>)
+              : "—"}
+          </div>
         </div>
       </div>
       <p className="price">
