@@ -39,6 +39,7 @@ npm start
 cd d:\vscodeproject\yisuhotelsystem\hotel-app
 npm run dev:weapp
 # 打开“微信开发者工具”，选择“导入项目”，目录指向上述 dist
+然后点预览可以手机扫码运行小程序
 ```
 
 4) 启动商家管理端
