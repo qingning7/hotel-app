@@ -1,7 +1,7 @@
 # 易宿酒店系统（Yisu Hotel System）
 
 包含三部分：
-- 小程序端：Taro（React 语法）→ 微信小程序
+- [小程序端](https://github.com/qingning7/Taro-based-Hotel-Reservation-Mini-Program)：Taro（React 语法）→ 微信小程序
 - 商家管理端：React + Ant Design
 - 服务端：Node.js + Express（本地 JSON 存储）
 
