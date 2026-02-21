@@ -33,7 +33,7 @@ npm start
 
 3) 启动小程序端（编译到 dist）
    在启动小程序端之前，需要在d:\vscodeproject\yisuhotelsystem\hotel-app新建环境文件hotel-app.env,
-   里面只输入一行代码：TARO_APP_TENCENT_MAP_KEY=HIDBZ-QEFEI-PX7GM-UIAJX-35WEO-U4FLU
+   里面只输入一行代码：TARO_APP_TENCENT_MAP_KEY=YOUR_KEY（需到腾讯官网申请）
    这样才能启用腾讯定位服务
 ```powershell
 cd d:\vscodeproject\yisuhotelsystem\hotel-app
