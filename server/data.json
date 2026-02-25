@@ -136,7 +136,7 @@
       "id": "1771137190839",
       "hotelId": "1771136239419",
       "username": "weapp_user",
-      "checkinDate": "2026-02-15",
+      "checkinDate": "2026-02-17",
       "checkoutDate": "2026-02-18",
       "roomId": "1771136239419_1bbf4e897c86",
       "roomName": "标准双床房",
@@ -169,6 +169,25 @@
       "cancelRequestedAt": null,
       "cancelApprovedAt": null,
       "cancelReviewedBy": ""
+    },
+    {
+      "id": "1771772255866",
+      "hotelId": "1771136239419",
+      "username": "weapp_user",
+      "checkinDate": "2026-02-22",
+      "checkoutDate": "2026-02-26",
+      "roomId": "1771136239419_1bbf4e897c86",
+      "roomName": "标准双床房",
+      "roomCount": 1,
+      "unitPrice": 238,
+      "nights": 4,
+      "totalAmount": 952,
+      "createdAt": 1771772255866,
+      "status": "cancelled",
+      "cancelReason": "行程改变",
+      "cancelRequestedAt": 1771772321571,
+      "cancelApprovedAt": 1771772339945,
+      "cancelReviewedBy": "merchant"
     }
   ]
 }

@@ -15,9 +15,9 @@ export default function LoginPage() {
     }
   };
 
-  const onLogin = (values) => {
+  const onLogin = async (values) => {
     try {
-      const session = login(values);
+      const session = await login(values);
       message.success("登录成功");
       goByRole(session.role);
     } catch (e) {
@@ -49,7 +49,7 @@ export default function LoginPage() {
         }}
       >
         <h2 style={{ textAlign: "center", marginBottom: 16 }}>
-          酒店管理系统 - 管理端
+          账号密码登录
         </h2>
         <Form layout="vertical" onFinish={onLogin}>
           <Form.Item

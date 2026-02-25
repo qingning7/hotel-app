@@ -1,166 +1,262 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Carousel, Typography, Tag, Rate, Card, DatePicker, Button, List, message, Divider, Row, Col, Statistic } from "antd";
 import { createSubscription, getHotelById } from "../services/storage";
+import dayjs from "dayjs";
+
+const { Title, Paragraph, Text } = Typography;
+const { RangePicker } = DatePicker;
+
+const OFFER_MAP = {
+  early_bird: "早鸟优惠",
+  multiple_nights: "连住优惠",
+  weekend: "周末特惠",
+  member: "会员专享"
+};
 
 export default function HotelDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [hotel, setHotel] = useState(null);
-  const [checkinDate, setCheckinDate] = useState("");
-  const [checkoutDate, setCheckoutDate] = useState("");
+  const [dates, setDates] = useState([]);
+  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    let mounted = true;
     (async () => {
       const h = await getHotelById(id);
-      if (mounted) setHotel(h || null);
+      setHotel(h || null);
     })();
-    return () => {
-      mounted = false;
-    };
   }, [id]);
 
   if (!hotel) {
-    return (
-      <div className="page">
-        <p>未找到该酒店信息，可能已下线。</p>
-        <button onClick={() => navigate("/hotels")} className="btn btnGhost">
-          返回列表
-        </button>
-      </div>
-    );
+    return <div style={{ padding: 40, textAlign: "center" }}>加载中或未找到酒店...</div>;
   }
 
   const handleSubscribe = async () => {
+    const raw = localStorage.getItem("hs_user_front_session");
+    const session = raw ? JSON.parse(raw) : null;
+    if (!session?.username) {
+      message.warning("请先登录");
+      navigate("/");
+      return;
+    }
+    if (!dates || dates.length !== 2) {
+      message.warning("请选择入住与退房日期");
+      return;
+    }
+    if (!selectedRoom) {
+      message.warning("请选择房型");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const raw = localStorage.getItem("hs_user_front_session");
-      const session = raw ? JSON.parse(raw) : null;
-      if (!session?.username) {
-        alert("请先登录");
-        navigate("/");
-        return;
-      }
-      if (!checkinDate || !checkoutDate) {
-        alert("请选择入住与退房日期");
-        return;
-      }
-      await createSubscription({ hotelId: hotel.id, username: session.username, checkinDate, checkoutDate });
-      alert("订阅成功");
-    } catch {
-      alert("订阅失败，请稍后再试");
+      const checkinDate = dates[0].format("YYYY-MM-DD");
+      const checkoutDate = dates[1].format("YYYY-MM-DD");
+      const nights = dates[1].diff(dates[0], "day") || 1;
+      const totalPrice = selectedRoom.price * nights;
+
+      await createSubscription({
+        hotelId: hotel.id,
+        username: session.username,
+        checkinDate,
+        checkoutDate,
+        roomId: selectedRoom.id || selectedRoom.name, // Fallback if no ID
+        roomName: selectedRoom.name,
+        roomCount: 1,
+        unitPrice: selectedRoom.price,
+        totalAmount: totalPrice,
+        nights,
+      });
+      message.success("预订成功！");
+      navigate("/orders");
+    } catch (err) {
+      message.error("预订失败：" + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
+  const nights = dates && dates.length === 2 ? dates[1].diff(dates[0], "day") : 0;
+  const totalPrice = selectedRoom && nights > 0 ? selectedRoom.price * nights : 0;
+
   return (
-    <div className="page">
-      <button onClick={() => navigate("/hotels")} className="btn btnGhost">
-        返回列表
-      </button>
-      <h2 className="pageTitle">{hotel.name}</h2>
-      {Array.isArray(hotel.images) && hotel.images.length > 0 ? (
-        <div className="gallery" style={{ marginTop: 8 }}>
-          {hotel.images.map((url) => {
-            const src = url?.startsWith("http") ? url : `http://localhost:4000${url || ""}`;
-            return <img key={url} src={src} alt="" style={{ width: 160, height: 120, objectFit: "cover", borderRadius: 10, border: "1px solid #e6f4ff" }} />;
-          })}
-        </div>
-      ) : null}
-      <p className="muted">
-        {hotel.city} · {hotel.address}
-      </p>
-      <p style={{ margin: "12px 0" }}>{hotel.desc}</p>
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: 12, marginTop: 8 }}>
-        <div className="card">
-          <div>星级：{hotel.star || 0}</div>
-          <div>主力房型：{hotel.roomType || "—"}</div>
-          <div>开业时间：{hotel.opened || "—"}</div>
-          <div>入住时间：{hotel.checkinTime || "—"}</div>
-          <div>退房时间：{hotel.checkoutTime || "—"}</div>
-          <div>联系电话：{hotel.phone || "—"}</div>
-        </div>
-        {Array.isArray(hotel.roomTypes) && hotel.roomTypes.length > 0 ? (
-          <div className="card">
-            <div style={{ marginBottom: 6 }}>房型与价格</div>
-            <div style={{ display: "grid", gap: 8 }}>
-              {hotel.roomTypes.map((r) => (
-                <div key={r.id || r.name} style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                  <div>
-                    <div style={{ fontWeight: 600 }}>{r.name}</div>
-                    <div style={{ fontSize: 12, color: "#666" }}>{r.area} · {r.bed}</div>
-                    <div style={{ fontSize: 12, color: "#666" }}>{Array.isArray(r.features) ? r.features.join("、") : ""}</div>
-                  </div>
-                  <div style={{ color: "#ff4d4f" }}>¥{r.price}</div>
+    <div style={{ maxWidth: 1200, margin: "0 auto", padding: "24px" }}>
+      <Button onClick={() => navigate("/hotels")} style={{ marginBottom: 16 }}>
+        &lt; 返回列表
+      </Button>
+
+      <Row gutter={[24, 24]}>
+        <Col xs={24} md={14}>
+          <Carousel autoplay style={{ borderRadius: 8, overflow: "hidden", marginBottom: 24 }}>
+            {hotel.images && hotel.images.length > 0 ? (
+              hotel.images.map((url, i) => (
+                <div key={i}>
+                  <img
+                    src={url.startsWith("http") ? url : `http://localhost:4000${url}`}
+                    alt={hotel.name}
+                    style={{ width: "100%", height: 400, objectFit: "cover" }}
+                  />
                 </div>
-              ))}
+              ))
+            ) : (
+              <div>
+                <div style={{ height: 400, background: "#eee", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  暂无图片
+                </div>
+              </div>
+            )}
+          </Carousel>
+
+          <Card>
+            <Title level={2}>{hotel.name}</Title>
+            <div style={{ marginBottom: 16 }}>
+              <Tag color="blue">{hotel.city}</Tag>
+              <Rate disabled defaultValue={Number(hotel.star)} />
+              <Text type="secondary" style={{ marginLeft: 8 }}>{hotel.score || 4.8}分</Text>
             </div>
-          </div>
-        ) : null}
-        <div className="card">
-          <div style={{ marginBottom: 6 }}>设施与服务</div>
-          <div>
-            {(Array.isArray(hotel.amenities) ? hotel.amenities : []).map((a) => (
-              <span key={a} className="badge">{a}</span>
-            ))}
-          </div>
-        </div>
-        <div className="card">
-          <div style={{ marginBottom: 6 }}>政策与说明</div>
-          <div style={{ fontSize: 14, color: "#333" }}>{hotel.policies || "—"}</div>
-          <div style={{ marginTop: 8, fontSize: 13, color: "#444" }}>
-            <div>早餐：{hotel?.policyDetail?.breakfast || "—"}</div>
-            <div>儿童政策：{hotel?.policyDetail?.childrenPolicy || "—"}</div>
-            <div>宠物政策：{hotel?.policyDetail?.petPolicy || "—"}</div>
-            <div>押金政策：{hotel?.policyDetail?.depositPolicy || "—"}</div>
-            <div>加床政策：{hotel?.policyDetail?.extraBedPolicy || "—"}</div>
-          </div>
-        </div>
-        <div className="card">
-          <div style={{ marginBottom: 6 }}>周边</div>
-          <div style={{ fontSize: 14 }}>
-            <div>景点：{Array.isArray(hotel.nearby?.attractions) && hotel.nearby.attractions.length > 0 ? hotel.nearby.attractions.join("、") : "—"}</div>
-            <div>商场：{Array.isArray(hotel.nearby?.malls) && hotel.nearby.malls.length > 0 ? hotel.nearby.malls.join("、") : "—"}</div>
-            <div>交通：{Array.isArray(hotel.nearby?.transport) && hotel.nearby.transport.length > 0 ? hotel.nearby.transport.join("、") : "—"}</div>
-          </div>
-        </div>
-        <div className="card">
-          <div style={{ marginBottom: 6 }}>优惠活动</div>
-          <div>
-            {Array.isArray(hotel.offers) && hotel.offers.length > 0
-              ? hotel.offers.map((o) => <span key={o} className="badge">{o}</span>)
-              : "—"}
-          </div>
-        </div>
-      </div>
-      <p className="price">
-        ￥{hotel.price} / 晚
-      </p>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginTop: 12, maxWidth: 420 }}>
-        <div>
-          <label>入住日期</label>
-          <input
-            type="date"
-            className="input"
-            value={checkinDate}
-            onChange={(e) => setCheckinDate(e.target.value)}
-          />
-        </div>
-        <div>
-          <label>退房日期</label>
-          <input
-            type="date"
-            className="input"
-            value={checkoutDate}
-            onChange={(e) => setCheckoutDate(e.target.value)}
-          />
-        </div>
-      </div>
-      <button
-        onClick={handleSubscribe}
-        className="btn btnPrimary"
-        style={{ marginTop: 16, width: "min(420px, 100%)" }}
-      >
-        订阅 / 预约
-      </button>
+            <Paragraph>
+              <Text strong>地址：</Text>{hotel.address}
+            </Paragraph>
+            <Paragraph>
+              <Text strong>简介：</Text>{hotel.desc}
+            </Paragraph>
+            <Divider />
+            <Row gutter={[16, 16]}>
+              <Col span={12}>
+                <Text strong>入住时间：</Text>{hotel.checkinTime || "14:00后"}
+              </Col>
+              <Col span={12}>
+                <Text strong>退房时间：</Text>{hotel.checkoutTime || "12:00前"}
+              </Col>
+              <Col span={12}>
+                 <Text strong>开业时间：</Text>{hotel.opened || "未知"}
+              </Col>
+              <Col span={12}>
+                 <Text strong>联系电话：</Text>{hotel.phone || "暂无"}
+              </Col>
+            </Row>
+            <Divider />
+            <Title level={4}>设施与服务</Title>
+            <div style={{ marginBottom: 16 }}>
+              {hotel.amenities && hotel.amenities.map(f => <Tag key={f} color="blue">{f}</Tag>)}
+            </div>
+            
+            {(hotel.policies || hotel.policyDetail) && (
+              <>
+                <Title level={5}>酒店政策</Title>
+                {hotel.policies && <Paragraph>{hotel.policies}</Paragraph>}
+                {hotel.policyDetail && (
+                  <div style={{ background: "#fafafa", padding: 12, borderRadius: 4 }}>
+                    {hotel.policyDetail.breakfast && <div><Text strong>早餐：</Text>{hotel.policyDetail.breakfast}</div>}
+                    {hotel.policyDetail.childrenPolicy && <div><Text strong>儿童：</Text>{hotel.policyDetail.childrenPolicy}</div>}
+                    {hotel.policyDetail.petPolicy && <div><Text strong>宠物：</Text>{hotel.policyDetail.petPolicy}</div>}
+                  </div>
+                )}
+              </>
+            )}
+
+            {hotel.offers && hotel.offers.length > 0 && (
+               <>
+                 <Divider />
+                 <Title level={4}>优惠信息</Title>
+                 {hotel.offers.map((o, i) => (
+                   <Tag color="red" key={i} style={{ marginBottom: 8 }}>
+                     {OFFER_MAP[o] || o}
+                   </Tag>
+                 ))}
+               </>
+            )}
+
+            {hotel.nearby && (
+              <>
+                 <Divider />
+                 <Title level={4}>周边信息</Title>
+                 {hotel.nearby.attractions && hotel.nearby.attractions.length > 0 && (
+                   <div style={{ marginBottom: 8 }}>
+                     <Text strong>景点：</Text>
+                     {hotel.nearby.attractions.join("、")}
+                   </div>
+                 )}
+                 {hotel.nearby.transport && hotel.nearby.transport.length > 0 && (
+                   <div style={{ marginBottom: 8 }}>
+                     <Text strong>交通：</Text>
+                     {hotel.nearby.transport.join("、")}
+                   </div>
+                 )}
+              </>
+            )}
+          </Card>
+        </Col>
+
+        <Col xs={24} md={10}>
+          <Card title="预订客房" bordered={false} style={{ boxShadow: "0 2px 8px rgba(0,0,0,0.1)" }}>
+            <div style={{ marginBottom: 24 }}>
+              <Text strong>1. 选择日期</Text>
+              <RangePicker
+                style={{ width: "100%", marginTop: 8 }}
+                onChange={(vals) => setDates(vals)}
+                disabledDate={(current) => current && current < dayjs().startOf('day')}
+              />
+            </div>
+
+            <div style={{ marginBottom: 24 }}>
+              <Text strong>2. 选择房型</Text>
+              <List
+                style={{ marginTop: 8 }}
+                itemLayout="horizontal"
+                dataSource={hotel.roomTypes || []}
+                renderItem={(room) => (
+                  <List.Item
+                    onClick={() => setSelectedRoom(room)}
+                    style={{
+                      cursor: "pointer",
+                      background: selectedRoom === room ? "#e6f7ff" : "transparent",
+                      border: selectedRoom === room ? "1px solid #1890ff" : "1px solid #f0f0f0",
+                      borderRadius: 4,
+                      padding: 12,
+                      marginBottom: 8,
+                    }}
+                  >
+                    <List.Item.Meta
+                      title={
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                          <span>{room.name}</span>
+                          <span style={{ color: "#ff4d4f" }}>¥{room.price}</span>
+                        </div>
+                      }
+                      description={
+                        <div style={{ fontSize: 12 }}>
+                          {room.area} | {room.bed} | {Array.isArray(room.features) ? room.features.join(" ") : ""}
+                        </div>
+                      }
+                    />
+                  </List.Item>
+                )}
+              />
+            </div>
+
+            <Divider />
+
+            <div style={{ textAlign: "right", marginBottom: 16 }}>
+              <Statistic title="总价" value={totalPrice} prefix="¥" precision={2} />
+              <Text type="secondary">{nights} 晚</Text>
+            </div>
+
+            <Button
+              type="primary"
+              size="large"
+              block
+              onClick={handleSubscribe}
+              loading={loading}
+              disabled={!selectedRoom || !dates || dates.length !== 2}
+            >
+              立即预订
+            </Button>
+          </Card>
+        </Col>
+      </Row>
     </div>
   );
 }

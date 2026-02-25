@@ -3,23 +3,30 @@ const API_BASE = "http://localhost:4000/api";
 
 export function initSeed() {}
 
-export function registerUser({ username, password, role }) {
-  const raw = localStorage.getItem("hs_users");
-  const users = raw ? JSON.parse(raw) : [];
-  if (users.some((u) => u.username === username)) {
-    throw new Error("该账号已存在");
+export async function registerUser({ username, password, role }) {
+  const r = await fetch(`${API_BASE}/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password, role }),
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(err.error || "注册失败");
   }
-  users.push({ username, password, role });
-  localStorage.setItem("hs_users", JSON.stringify(users));
+  return r.json();
 }
 
-export function login({ username, password }) {
-  const raw = localStorage.getItem("hs_users");
-  const users = raw ? JSON.parse(raw) : [];
-  const user = users.find(
-    (u) => u.username === username && u.password === password
-  );
-  if (!user) throw new Error("账号或密码错误");
+export async function login({ username, password }) {
+  const r = await fetch(`${API_BASE}/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(err.error || "账号或密码错误");
+  }
+  const user = await r.json();
   localStorage.setItem(SESSION_KEY, JSON.stringify({ username: user.username, role: user.role }));
   return { username: user.username, role: user.role };
 }

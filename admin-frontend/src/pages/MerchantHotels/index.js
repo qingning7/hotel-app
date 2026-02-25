@@ -1,6 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { Button, Form, Input, Modal, Table, Tag, Tabs, Checkbox, Popconfirm, message } from "antd";
+import { Button, Form, Input, Modal, Table, Tag, Tabs, Checkbox, Popconfirm, message, Upload } from "antd";
+import { PlusOutlined, LoadingOutlined } from "@ant-design/icons";
 import { getSession, listHotels, upsertHotel, listSubscriptionsByMerchant, setHotelDeleted } from "../../services/storage";
+
+const API_BASE = "http://localhost:4000/api";
+
+const SingleImageUpload = ({ value, onChange }) => {
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (info) => {
+    if (info.file.status === "uploading") {
+      setLoading(true);
+      return;
+    }
+    if (info.file.status === "done") {
+      setLoading(false);
+      const url = info.file.response?.urls?.[0];
+      if (url) {
+        onChange(url);
+      } else {
+        message.error("上传失败");
+      }
+    } else if (info.file.status === "error") {
+      setLoading(false);
+      message.error("上传错误");
+    }
+  };
+
+  const uploadButton = (
+    <div>
+      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <div style={{ marginTop: 8 }}>上传</div>
+    </div>
+  );
+
+  return (
+    <Upload
+      name="images"
+      listType="picture-card"
+      className="avatar-uploader"
+      showUploadList={false}
+      action={`${API_BASE}/upload-images`}
+      onChange={handleChange}
+    >
+      {value ? (
+        <img src={value} alt="img" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+      ) : (
+        uploadButton
+      )}
+    </Upload>
+  );
+};
 
 function statusTag(status) {
   if (status === "approved") return <Tag color="green">通过</Tag>;
@@ -416,8 +466,8 @@ export default function MerchantHotels() {
                       <Form.Item label="特色标签" name={[field.name, "features"]}>
                         <Checkbox.Group options={roomFeatureOptions.map((x) => ({ label: x, value: x }))} />
                       </Form.Item>
-                      <Form.Item label="图片URL" name={[field.name, "img"]}>
-                        <Input placeholder="可选，房型图片URL" />
+                      <Form.Item label="房型图片" name={[field.name, "img"]}>
+                        <SingleImageUpload />
                       </Form.Item>
                     </div>
                     <div style={{ textAlign: "right" }}>
